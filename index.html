@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Narasimha Stills | Luxury Wedding & Portrait Photography Studio</title>
+  <meta name="description" content="Premier luxury wedding and portrait photography studio led by Narasimharao with over 20 years of excellence in Guntur, Andhra Pradesh." />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="styles.css?v=6.0" />
+</head>
+<body>
+
+  <!-- ==========================================================================
+       PUBLIC WEBSITE CONTENT
+       ========================================================================== -->
+  <main id="public-website">
+
+    <!-- NAVIGATION HEADER -->
+    <header class="navbar">
+      <div class="container nav-container">
+        <a href="#home" class="brand-logo">
+          <div class="brand-icon">N</div>
+          <div class="brand-text">
+            <h2>Narasimha Stills</h2>
+            <span>By Narasimharao • Est. 2004</span>
+          </div>
+        </a>
+        
+        <ul class="nav-menu">
+          <li><a href="#home" class="nav-link active" onclick="scrollToSection('home')">Home</a></li>
+          <li><a href="#founder" class="nav-link" onclick="scrollToSection('founder')">Founder</a></li>
+          <li><a href="#about" class="nav-link" onclick="scrollToSection('about')">About</a></li>
+          <li><a href="#portfolio" class="nav-link" onclick="scrollToSection('portfolio')">Portfolio</a></li>
+          <li><a href="#packages" class="nav-link" onclick="scrollToSection('packages')">Packages</a></li>
+          <li><a href="#reviews" class="nav-link" onclick="scrollToSection('reviews')">Reviews</a></li>
+          <li><a href="#contact" class="nav-link" onclick="scrollToSection('contact')">Contact</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <button id="open-login-btn" class="btn btn-outline" onclick="openLoginModal(event)">Staff Login</button>
+          <a href="#contact" class="btn btn-primary" onclick="scrollToBooking()">Book Session</a>
+          <button id="mobile-menu-toggle" class="mobile-toggle-btn" aria-label="Toggle Navigation Menu">☰</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="hero">
+      <video class="hero-bg-video" autoplay loop muted playsinline>
+        <source src="Camera.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-overlay"></div>
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 24px;">
+            <div class="hero-badge" style="margin-bottom: 0;">
+              <span>★</span> Guntur's Premier Photography Studio
+            </div>
+            <div class="hero-badge" style="background: rgba(16, 185, 129, 0.18); border-color: rgba(16, 185, 129, 0.65); color: #34D399; margin-bottom: 0;">
+              <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#10B981; margin-right:4px; box-shadow:0 0 10px #10B981;"></span> Booking Open for 2026 Season
+            </div>
+          </div>
+          <h1 class="hero-title">Capturing <span id="hero-typing-text" class="text-gold">Timeless</span><span class="typing-cursor">|</span> <br />Moments & Memories</h1>
+          <div class="hero-quote-box">
+            <span class="hero-quote-mark">“</span>
+            <span id="hero-typing-quote" class="hero-quote-text">Every wedding is a love story; we make your moments live forever.</span>
+          </div>
+          <p class="hero-description">
+            With over 20+ years of mastery under the lens of Narasimharao, we turn your weddings, milestones, and portraits into cinematic pieces of art.
+          </p>
+          <div class="hero-cta">
+            <a href="#contact" class="btn btn-primary" onclick="scrollToBooking('Wedding Package')">Reserve Event Date</a>
+            <a href="#portfolio" class="btn btn-outline" onclick="scrollToSection('portfolio')">Explore Gallery</a>
+          </div>
+        </div>
+        <div class="hero-card-stack">
+          <video class="main-hero-img" autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=1000&q=80">
+            <source src="Camera.mp4" type="video/mp4" />
+            Your browser does not support HTML5 video.
+          </video>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS BAR -->
+    <section class="stats-bar">
+      <div class="container stats-grid">
+        <div class="stat-item">
+          <h3 class="text-gold">20+</h3>
+          <p>Years Mastery</p>
+        </div>
+        <div class="stat-item">
+          <h3 class="text-gold">1,200+</h3>
+          <p>Weddings Captured</p>
+        </div>
+        <div class="stat-item">
+          <h3 class="text-gold">100%</h3>
+          <p>Client Delight</p>
+        </div>
+        <div class="stat-item">
+          <h3 class="text-gold">50k+</h3>
+          <p>Moments Preserved</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOUNDER'S MESSAGE SECTION -->
+    <section id="founder" class="founder-section">
+      <div class="container founder-grid">
+        <!-- Left Column: Founder Photo Card -->
+        <div class="founder-image-card">
+          <img src="narasimharao_founder.jpg" alt="Narasimharao Founder Narasimha Stills" class="founder-image" />
+          <div class="founder-overlay-tag">
+            <div class="founder-overlay-name">NARASIMHARAO</div>
+            <div class="founder-overlay-sub">FOUNDER • NARASIMHA STILLS</div>
+          </div>
+        </div>
+
+        <!-- Right Column: Founder Message & Quote -->
+        <div class="founder-content">
+          <span class="founder-pill-badge">FOUNDER'S MESSAGE</span>
+          <h2 class="founder-title">Committed to Capturing Timeless Memories For Every Family & Couple</h2>
+          <p class="founder-desc">
+            Narasimha Stills began with a simple belief: every family, couple, and milestone celebration deserves authentic, emotional, and high-quality photography. Today, we bring that same commitment across Andhra Pradesh with 20+ years of artistic mastery under the lens of Narasimharao.
+          </p>
+
+          <div class="founder-quote-box">
+            <div class="founder-quote-mark">“</div>
+            <p class="founder-quote-text">
+              We focus on cinematic storytelling, authentic candid emotions, and lifelong memories, so your special moments remain timeless—year after year.
+            </p>
+            <div class="founder-quote-author">— NARASIMHARAO, FOUNDER</div>
+          </div>
+
+          <div class="founder-metrics-row">
+            <div class="founder-metric-item">
+              <h3>20+</h3>
+              <p>Years Experience</p>
+            </div>
+            <div class="founder-metric-item">
+              <h3>1,200+</h3>
+              <p>Weddings Captured</p>
+            </div>
+            <div class="founder-metric-item">
+              <h3>24/7</h3>
+              <p>Dedicated Support</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" style="padding: 100px 0;">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Our Heritage</span>
+          <h2 class="section-title">Two Decades of Preserving Royal Heritage & Love</h2>
+          <p class="section-subtitle">
+            Based in the heart of Guntur, Andhra Pradesh, Narasimha Stills has been the definitive choice for families seeking unmatched photographic brilliance.
+          </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;">
+          <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=1200&q=80" alt="Royal Indian Destination Wedding Photography by Narasimha Stills" style="width:100%; max-height:540px; object-fit:cover; border-radius: var(--radius-lg); border: 1px solid var(--border-color); box-shadow: var(--shadow-card);" />
+          <div>
+            <h3 style="font-size: 2rem; margin-bottom: 20px;">The Artistic Touch of Narasimharao</h3>
+            <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 1.05rem;">
+              Led by master photographer Narasimharao, our artistic philosophy blends traditional South Indian reverence with contemporary cinematic storytelling.
+            </p>
+            <div style="display: flex; gap: 20px; margin-top: 30px;">
+              <div style="background: var(--bg-card); padding: 20px; border-radius: var(--radius-md); border: 1px solid var(--border-light); flex: 1;">
+                <h4 style="color: var(--accent-gold); margin-bottom: 8px;">Cinematic 4K Gear</h4>
+                <p style="font-size: 0.9rem; color: var(--text-muted);">Sony & RED 4K sensors, prime lenses, & aerial drone tech.</p>
+              </div>
+              <div style="background: var(--bg-card); padding: 20px; border-radius: var(--radius-md); border: 1px solid var(--border-light); flex: 1;">
+                <h4 style="color: var(--accent-gold); margin-bottom: 8px;">Personalized Touch</h4>
+                <p style="font-size: 0.9rem; color: var(--text-muted);">Tailored artistic direction for every couple and family.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO SECTION -->
+    <section id="portfolio" class="portfolio-section" style="background: var(--bg-card); border-y: 1px solid var(--border-light);">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Featured Portfolio</span>
+          <h2 class="section-title">A Glimpse Into Our Finest Creations</h2>
+          <p class="section-subtitle">Explore wedding rituals, romantic pre-wedding stories, and timeless portraits.</p>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="filter-tabs">
+          <button class="filter-btn active" data-filter="all" onclick="filterPortfolioTab('all', this)">All Works</button>
+          <button class="filter-btn" data-filter="wedding" onclick="filterPortfolioTab('wedding', this)">Telugu Weddings</button>
+          <button class="filter-btn" data-filter="prewedding" onclick="filterPortfolioTab('prewedding', this)">Pre-Wedding</button>
+          <button class="filter-btn" data-filter="portraits" onclick="filterPortfolioTab('portraits', this)">Bridal Portraits</button>
+          <button class="filter-btn" data-filter="baby" onclick="filterPortfolioTab('baby', this)">Baby Milestones</button>
+        </div>
+
+        <!-- Dynamic Grid -->
+        <div id="portfolio-grid" class="portfolio-grid">
+          <!-- Populated by app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- PACKAGES SECTION -->
+    <section id="packages" class="packages-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Packages & Pricing</span>
+          <h2 class="section-title">Tailored Photography Packages</h2>
+          <p class="section-subtitle">Transparent pricing designed for weddings, pre-wedding shoots, and baby celebrations.</p>
+        </div>
+
+        <div class="packages-grid">
+          <!-- Package 1 -->
+          <div class="package-card">
+            <h3 class="package-name">Pre-Wedding Shoot</h3>
+            <div id="display-price-prewedding" class="package-price">₹30,000</div>
+            <ul class="package-features">
+              <li>Full Destination Outdoor Shoot</li>
+              <li>2 Professional Photographers & Cinematographers</li>
+              <li>4K Drone Aerial Coverage</li>
+              <li>30 Edited High-Res Retouched Prints</li>
+              <li>Cinematic Teaser Film (3-5 mins)</li>
+            </ul>
+            <a href="#contact" class="btn btn-outline book-package-btn" onclick="scrollToBooking('Pre-Wedding Shoot')" data-select-service="Pre-Wedding Shoot" style="margin-top:auto;">Book Pre-Wedding</a>
+          </div>
+
+          <!-- Package 2 (Featured) -->
+          <div class="package-card featured">
+            <div class="featured-badge">Most Popular</div>
+            <h3 class="package-name">Wedding Package</h3>
+            <div id="display-price-wedding" class="package-price">₹2,50,000</div>
+            <ul class="package-features">
+              <li>Complete Event Coverage (Muhurtham & Reception)</li>
+              <li>4K Dual Camera Setup (Sony FX3 / RED)</li>
+              <li>Candid & Traditional Photography</li>
+              <li>Full 4K Drone Aerial Coverage</li>
+              <li>2 Signature Velvet Coffee Table Albums (100 Sheets)</li>
+              <li>Feature Length Cinematic Film (30-45 mins)</li>
+            </ul>
+            <a href="#contact" class="btn btn-primary book-package-btn" onclick="scrollToBooking('Wedding Package')" data-select-service="Wedding Package" style="margin-top:auto;">Reserve Wedding Package</a>
+          </div>
+
+          <!-- Package 3 -->
+          <div class="package-card">
+            <h3 class="package-name">Baby Milestone & Portrait</h3>
+            <div id="display-price-baby" class="package-price">₹25,000</div>
+            <ul class="package-features">
+              <li>Studio Session (Up to 3 Hours)</li>
+              <li>3 Theme & Props Setup Included</li>
+              <li>Soft Studio Lighting & Patient Handling</li>
+              <li>25 High-Res Digital Retouched Images</li>
+              <li>1 Premium Desk Framed Portrait</li>
+            </ul>
+            <a href="#contact" class="btn btn-outline book-package-btn" onclick="scrollToBooking('Baby Milestone Shoot')" data-select-service="Baby Milestone Shoot" style="margin-top:auto;">Book Baby Shoot</a>
+          </div>
+        </div>
+
+        <!-- Any Enquiry? Contact Us Banner -->
+        <div style="margin-top: 50px; background: var(--bg-card); padding: 32px 40px; border-radius: var(--radius-lg); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; box-shadow: var(--shadow-card);">
+          <div>
+            <h3 style="font-size: 1.4rem; color: #FFF; margin-bottom: 6px;">Have Any Custom Enquiry or Special Requirement?</h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">Contact Narasimharao directly via Call or WhatsApp to discuss tailored quotes for your event.</p>
+          </div>
+          <div style="display: flex; gap: 14px; align-items: center; flex-wrap: wrap;">
+            <a href="tel:+918374571213" class="btn btn-outline">📞 Call +91 8374571213</a>
+            <a href="https://wa.me/+918374571213?text=Hi%20Narasimha%20Stills,%20I%20have%20an%20enquiry%20regarding%20photography%20packages." target="_blank" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
+              <img src="whatsapp_logo.png" alt="WhatsApp" style="width: 22px; height: 22px; object-fit: contain;" /> Any Enquiry? Contact Us
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BEFORE / AFTER RETOUCHING SHOWCASE (PREVIEW) -->
+    <section id="retouching" class="retouching-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Master Artistry</span>
+          <h2 class="section-title">Post-Production & Signature Color Grading</h2>
+          <p class="section-sub">Drag the split-slider to compare raw camera capture versus Narasimharao's final retouched masterpiece.</p>
+        </div>
+
+        <div class="ba-slider-card">
+          <div class="ba-slider" id="ba-slider">
+            <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=1200&q=80" alt="Final Retouched Gold Masterpiece" class="ba-img ba-after" />
+            <div class="ba-before-wrapper" id="ba-before-wrapper" style="width: 50%;">
+              <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=1200&q=80&sat=-60" alt="Raw Camera Frame" class="ba-img ba-before" />
+            </div>
+            <input type="range" min="0" max="100" value="50" class="ba-range-input" id="ba-slider-input" />
+            <div class="ba-handle" id="ba-handle" style="left: 50%;">
+              <div class="ba-handle-line"></div>
+              <div class="ba-handle-circle">↔</div>
+            </div>
+            <span class="ba-badge ba-badge-before">RAW CAPTURE</span>
+            <span class="ba-badge ba-badge-after">RETOUCHED MASTERPIECE</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE EVENT COST CALCULATOR (PREVIEW) -->
+    <section id="calculator" class="calculator-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Instant Quote</span>
+          <h2 class="section-title">Interactive Event Package Estimator</h2>
+          <p class="section-sub">Select your event requirements and customize add-ons to get a transparent price estimate.</p>
+        </div>
+
+        <div class="calc-card">
+          <div class="calc-grid">
+            <div class="calc-options">
+              <div class="form-group">
+                <label class="form-label">Select Primary Event Type</label>
+                <select id="calc-event" class="form-select">
+                  <option value="180000" data-name="Grand Telugu Wedding">Grand Telugu Wedding (Muhurtham & Reception)</option>
+                  <option value="30000" data-name="Pre-Wedding Shoot">Pre-Wedding Outdoor Shoot</option>
+                  <option value="25000" data-name="Baby Milestone Shoot">Baby Milestone & Studio Session</option>
+                  <option value="45000" data-name="Engagement / Sangeet">Engagement / Sangeet Ceremony</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Event Multi-Day Multiplier</label>
+                <select id="calc-days" class="form-select">
+                  <option value="1">1 Day Event Coverage</option>
+                  <option value="1.8">2 Days Multi-Event Coverage (+80%)</option>
+                  <option value="2.5">3 Days Destination Wedding (+150%)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Select Premium Add-Ons</label>
+                <div class="calc-checkbox-group">
+                  <label class="calc-checkbox"><input type="checkbox" class="calc-addon" value="30000" checked /> 4K Drone Aerial Videography (+₹30,000)</label>
+                  <label class="calc-checkbox"><input type="checkbox" class="calc-addon" value="25000" checked /> 2 Signature Velvet Coffee Table Albums (+₹25,000)</label>
+                  <label class="calc-checkbox"><input type="checkbox" class="calc-addon" value="20000" /> 4K Live YouTube / Webcast Streaming (+₹20,000)</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="calc-summary-box">
+              <h3 style="font-size: 1.3rem; margin-bottom: 20px; color: var(--accent-gold-dark);">Custom Package Estimate</h3>
+              <div class="calc-line"><span>Base Event Coverage:</span> <strong id="calc-event-price">₹1,80,000</strong></div>
+              <div class="calc-line"><span>Selected Add-Ons:</span> <strong id="calc-addons-price">₹55,000</strong></div>
+              <div class="calc-divider"></div>
+              <div class="calc-total-label">ESTIMATED TOTAL</div>
+              <div class="calc-total-price" id="calc-total">₹2,35,000</div>
+              <button id="calc-book-btn" class="btn btn-primary" style="width:100%; margin-top:20px;" onclick="handleCalculatorBooking()">Book This Package Estimate →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LUXURY FAQ SECTION (PREVIEW) -->
+    <section id="faq" class="faq-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Got Questions?</span>
+          <h2 class="section-title">Frequently Asked Questions</h2>
+        </div>
+
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question">How far in advance should we book Narasimharao for our wedding? <span class="faq-icon">+</span></button>
+            <div class="faq-answer">
+              <p>Couples typically reserve wedding dates 3 to 6 months in advance due to peak wedding seasons in Guntur & Andhra Pradesh. Contact us anytime to confirm availability!</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">Do you travel for destination pre-wedding shoots outside Guntur? <span class="faq-icon">+</span></button>
+            <div class="faq-answer">
+              <p>Yes! We travel across India and international destinations for beach pre-wedding shoots, heritage palace films, and luxury wedding ceremonies.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">How long does photo editing and 4K film delivery take? <span class="faq-icon">+</span></button>
+            <div class="faq-answer">
+              <p>High-resolution edited digital photographs are delivered within 10 to 14 days. Custom printed Velvet Coffee Table Albums and 4K Cinematic Films are delivered within 3 to 4 weeks.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">What camera gear and drone equipment do you use? <span class="faq-icon">+</span></button>
+            <div class="faq-answer">
+              <p>We shoot exclusively with Sony FX3 / RED digital cinema cameras, G-Master lenses, multi-axis gimbals, and 4K Hasselblad aerial drones.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVIEWS SECTION -->
+    <section id="reviews" class="reviews-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Client Love</span>
+          <h2 class="section-title">Words From Our Couples & Families</h2>
+        </div>
+
+        <div class="reviews-grid">
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-quote">"Narasimharao garu and his team captured our wedding with absolute magic! With 20+ years of experience, his directions made us so comfortable. The cinematic film still brings tears to our eyes!"</p>
+            <div class="reviewer-name">Kiran & Swathi</div>
+            <div class="reviewer-sub">Wedding in Guntur</div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-quote">"Best photography studio in Andhra Pradesh! Professional, punctual, and exceptionally talented. The drone shots and candid emotions captured are breathtaking."</p>
+            <div class="reviewer-name">Rama Krishna & Anusha</div>
+            <div class="reviewer-sub">Destination Pre-Wedding & Reception</div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-quote">"Extremely patient with our family and delivered wonderful portraits. Narasimha Stills is our family photographer for life!"</p>
+            <div class="reviewer-name">Nagarjuna & Sirisha</div>
+            <div class="reviewer-sub">Family & Baby Shoot</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT & BOOKING SECTION -->
+    <section id="contact" class="contact-section">
+      <div class="container contact-grid">
+        <div class="contact-info-box">
+          <span class="section-tag">Get In Touch</span>
+          <h3>Ready to Capture Your Special Day?</h3>
+          <p style="color: var(--text-muted);">
+            Dates fill up fast for the wedding season. Contact Narasimharao today to discuss your photography requirements.
+          </p>
+
+          <ul class="contact-info-list">
+            <li class="contact-info-item">
+              <div class="contact-icon">📍</div>
+              <div class="contact-details">
+                <h4>Studio Location (Google Maps)</h4>
+                <p>
+                  <a href="https://www.google.com/maps/search/?api=1&query=16.285836,80.439902" target="_blank" rel="noopener noreferrer" style="color: var(--accent-gold-dark); font-weight: 700; text-decoration: underline;">
+                    Sampath Nagar, Guntur, Andhra Pradesh 522004
+                  </a>
+                </p>
+                <a href="https://www.google.com/maps/search/?api=1&query=16.285836,80.439902" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline" style="margin-top: 10px; font-size: 0.82rem;">
+                  🗺 Open Location in Google Maps
+                </a>
+              </div>
+            </li>
+            <li class="contact-info-item">
+              <div class="contact-icon">📞</div>
+              <div class="contact-details">
+                <h4>Direct Phone</h4>
+                <p><a href="tel:+918374571213">+91 8374571213</a></p>
+              </div>
+            </li>
+            <li class="contact-info-item">
+              <div class="contact-icon contact-icon-whatsapp">
+                <img src="whatsapp_logo.png" alt="WhatsApp Logo" class="whatsapp-inline-logo" />
+              </div>
+              <div class="contact-details">
+                <h4>WhatsApp Inquiry</h4>
+                <p><a href="https://wa.me/+918374571213?text=Hi%20Narasimha%20Stills,%20I%20want%20to%20check%20availability%20for%20my%20event." target="_blank" style="color: #25D366; font-weight: 700;">Chat Direct on WhatsApp →</a></p>
+              </div>
+            </li>
+            <li class="contact-info-item">
+              <div class="contact-icon">✉</div>
+              <div class="contact-details">
+                <h4>Email Address</h4>
+                <p><a href="mailto:lingamallutharunmanikanta@gmail.com">lingamallutharunmanikanta@gmail.com</a></p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Booking Form -->
+        <div class="booking-form-card">
+          <h3 style="font-size: 1.8rem; margin-bottom: 24px;">Book a Photo Session</h3>
+          <form id="booking-form" onsubmit="handleBookingSubmit(event)">
+            <div class="form-group">
+              <label class="form-label">Full Name *</label>
+              <input type="text" id="book-name" class="form-input" placeholder="e.g. Ramesh Kumar" required />
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Phone Number *</label>
+                <input type="tel" id="book-phone" class="form-input" placeholder="+91 98765 43210" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input type="email" id="book-email" class="form-input" placeholder="ramesh@example.com" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Photography Service</label>
+                <select id="book-service" class="form-select">
+                  <option value="Wedding Package">Wedding Package</option>
+                  <option value="Pre-Wedding Shoot">Pre-Wedding Shoot</option>
+                  <option value="Bridal Portrait Session">Bridal Portrait Session</option>
+                  <option value="Baby Milestone Shoot">Baby Milestone Shoot</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Event Date *</label>
+                <input type="date" id="book-date" class="form-input" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Event Location & Special Requests</label>
+              <textarea id="book-notes" class="form-textarea" rows="3" placeholder="Tell us about your venue in Guntur / Andhra Pradesh, number of guests, or drone requirements..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%;" onclick="handleBookingSubmit(event)">Submit Booking Inquiry</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="container footer-grid">
+        <div class="footer-col">
+          <div class="brand-logo">
+            <div class="brand-icon">N</div>
+            <div class="brand-text">
+              <h2>Narasimha Stills</h2>
+              <span>Est. 2004 • Guntur</span>
+            </div>
+          </div>
+          <p>Premier luxury wedding and portrait photography studio led by Narasimharao with over 20 years of excellence in Guntur, Andhra Pradesh.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Narasimharao</a></li>
+            <li><a href="#portfolio">Featured Portfolio</a></li>
+            <li><a href="#packages">Packages & Pricing</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul class="footer-links">
+            <li><a href="#portfolio">Telugu Weddings</a></li>
+            <li><a href="#portfolio">Pre-Wedding Shoots</a></li>
+            <li><a href="#portfolio">4K Drone Videography</a></li>
+            <li><a href="#portfolio">Baby Milestones</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact Us</h4>
+          <p style="font-size: 0.9rem;">
+            <a href="https://www.google.com/maps/search/?api=1&query=16.285836,80.439902" target="_blank" rel="noopener noreferrer" style="color: #A0AEC0; text-decoration: underline;">
+              Sampath Nagar, Guntur, AP 522004
+            </a>
+          </p>
+          <p style="font-size: 0.9rem; margin-top: 8px;">Phone: +91 8374571213</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Narasimha Stills. All Rights Reserved. Crafted for Luxury Photography Experience.</p>
+      </div>
+    </footer>
+
+    <!-- Floating WhatsApp Quick Contact Button -->
+    <a href="https://wa.me/+918374571213?text=Hi%20Narasimha%20Stills,%20I%20want%20to%20book%20a%20photo%20session%20for%20my%20event." 
+       target="_blank" 
+       rel="noopener noreferrer" 
+       class="floating-whatsapp-btn" 
+       title="Chat Direct on WhatsApp with Narasimharao">
+      <img src="whatsapp_logo.png" alt="WhatsApp Chat" class="floating-whatsapp-img" />
+      <span class="whatsapp-badge-pulse"></span>
+    </a>
+
+  </main>
+
+
+  <!-- ==========================================================================
+       STAFF LOGIN MODAL
+       ========================================================================== -->
+  <div id="login-modal" class="modal-overlay">
+    <div class="modal-box">
+      <button id="close-login-btn" class="modal-close">&times;</button>
+      <div style="text-align: center; margin-bottom: 24px;">
+        <div class="brand-icon" style="margin: 0 auto 12px auto;">N</div>
+        <h2 style="font-size: 1.6rem;">Studio Staff Login</h2>
+        <p style="color: var(--text-muted); font-size: 0.88rem;">Access Narasimha Stills Admin Dashboard</p>
+      </div>
+
+      <div class="demo-hint">
+        <strong>Demo Login Credentials:</strong><br />
+        Username: <code style="color:var(--accent-gold)">admin</code><br />
+        Password: <code style="color:var(--accent-gold)">narasimha2004</code>
+      </div>
+
+      <form id="login-form" onsubmit="handleLoginDirect(event)">
+        <div class="form-group">
+          <label class="form-label">Username</label>
+          <input type="text" id="login-user" class="form-input" value="admin" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" id="login-pass" class="form-input" value="narasimha2004" required />
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; margin-top: 10px;" onclick="handleLoginDirect(event)">Log In to Dashboard</button>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ==========================================================================
+       ADMIN DASHBOARD PORTAL
+       ========================================================================== -->
+  <div id="admin-dashboard" class="admin-view">
+    
+    <!-- Admin Top Header -->
+    <div style="background: var(--bg-sidebar); border-bottom: 1px solid var(--border-light); padding: 16px 30px; display:flex; justify-content:space-between; align-items:center;">
+      <div style="display:flex; align-items:center; gap:16px;">
+        <div class="brand-icon" style="width:36px; height:36px; font-size:1rem;">N</div>
+        <h3 style="font-size: 1.2rem;">Narasimha Stills <span style="color:var(--accent-gold); font-size:0.85rem; margin-left:8px; text-transform:uppercase; letter-spacing:1px;">Admin Portal</span></h3>
+      </div>
+      <div style="display:flex; gap:12px;">
+        <button id="switch-public-site-btn" class="btn btn-sm btn-outline" onclick="switchToPublicSite()">👁 View Public Site</button>
+        <button id="admin-logout-btn" class="btn btn-sm btn-outline" style="border-color: var(--danger); color: var(--danger);" onclick="handleLogout()">Logout</button>
+      </div>
+    </div>
+
+    <div class="admin-wrapper">
+      
+      <!-- Admin Sidebar Navigation -->
+      <aside class="admin-sidebar">
+        <ul class="admin-nav-list">
+          <li>
+            <button class="admin-nav-btn active" data-panel="overview" onclick="switchAdminPanel('overview', this)">
+              <span>📊</span> Overview & Metrics
+            </button>
+          </li>
+          <li>
+            <button class="admin-nav-btn" data-panel="bookings" onclick="switchAdminPanel('bookings', this)">
+              <span>📅</span> Bookings & Inquiries
+            </button>
+          </li>
+          <li>
+            <button class="admin-nav-btn" data-panel="portfolio" onclick="switchAdminPanel('portfolio', this)">
+              <span>🖼</span> Manage Portfolio
+            </button>
+          </li>
+          <li>
+            <button class="admin-nav-btn" data-panel="pricing" onclick="switchAdminPanel('pricing', this)">
+              <span>💰</span> Manage Packages & Add-Ons
+            </button>
+          </li>
+          <li>
+            <button class="admin-nav-btn" data-panel="settings" onclick="switchAdminPanel('settings', this)">
+              <span>⚙</span> Studio Settings
+            </button>
+          </li>
+        </ul>
+      </aside>
+
+      <!-- Admin Main Content Area -->
+      <main class="admin-content">
+        
+        <!-- PANEL 1: OVERVIEW -->
+        <section id="panel-overview" class="admin-panel active">
+          <div class="admin-header">
+            <div>
+              <h2 style="font-size: 1.8rem;">Studio Overview</h2>
+              <p style="color: var(--text-muted); font-size: 0.9rem;">Welcome back, Narasimharao garu! Here is your studio summary.</p>
+            </div>
+          </div>
+
+          <!-- KPI Grid -->
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-icon">📋</div>
+              <div class="kpi-info">
+                <h4>Total Inquiries</h4>
+                <h2 id="kpi-inquiries">3</h2>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-icon">⏳</div>
+              <div class="kpi-info">
+                <h4>Pending Action</h4>
+                <h2 id="kpi-pending" style="color:var(--warning);">1</h2>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-icon">🖼</div>
+              <div class="kpi-info">
+                <h4>Active Showcase</h4>
+                <h2 id="kpi-portfolio-count">6</h2>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-icon">💰</div>
+              <div class="kpi-info">
+                <h4>Est. Pipeline</h4>
+                <h2 id="kpi-revenue" style="color:var(--accent-gold-light);">₹1,70,000</h2>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Activity Banner -->
+          <div class="table-card" style="padding:28px;">
+            <h3 style="font-size: 1.3rem; margin-bottom: 12px;">Welcome to Studio Management System</h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">
+              Manage event shoot inquiries coming from client submissions, add new portfolio photographs to the showcase gallery, or review studio details.
+            </p>
+          </div>
+        </section>
+
+        <!-- PANEL 2: BOOKINGS & INQUIRIES -->
+        <section id="panel-bookings" class="admin-panel">
+          <div class="admin-header">
+            <div>
+              <h2 style="font-size: 1.8rem;">Event Inquiries & Bookings</h2>
+              <p style="color: var(--text-muted); font-size: 0.9rem;">Review, confirm, or decline photoshoot bookings submitted by clients.</p>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <div class="table-header-bar">
+              <h4>Active Bookings List</h4>
+            </div>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Booking ID</th>
+                  <th>Client Contact</th>
+                  <th>Service Package</th>
+                  <th>Event Date</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admin-bookings-table">
+                <!-- Populated by app.js -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- PANEL 3: MANAGE PORTFOLIO -->
+        <section id="panel-portfolio" class="admin-panel">
+          <div class="admin-header">
+            <div>
+              <h2 style="font-size: 1.8rem;">Portfolio Manager</h2>
+              <p style="color: var(--text-muted); font-size: 0.9rem;">Add new photograph creations to the public showcase gallery.</p>
+            </div>
+          </div>
+
+          <!-- Add Portfolio Item Form -->
+          <div class="table-card" style="padding:28px; margin-bottom:32px;">
+            <h4 style="margin-bottom: 16px; font-size: 1.1rem; color: var(--accent-gold);">+ Add New Portfolio Showcase</h4>
+            <form id="add-portfolio-form" onsubmit="handleAddPortfolio(event)">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Project Title *</label>
+                  <input type="text" id="port-title" class="form-input" placeholder="e.g. Royal Sangeet Night" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Category *</label>
+                  <select id="port-category" class="form-select">
+                    <option value="wedding">Telugu Wedding</option>
+                    <option value="prewedding">Pre-Wedding</option>
+                    <option value="portraits">Bridal Portrait</option>
+                    <option value="baby">Baby Milestone</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Upload Photograph File (Select Image From Device) *</label>
+                <input type="file" id="port-file" accept="image/*" class="form-input" style="padding: 10px; cursor: pointer; background: #FFFFFF;" />
+                <div id="image-upload-preview" style="margin-top: 14px; display: none;">
+                  <img id="upload-preview-img" src="" alt="Upload Preview" style="max-height: 160px; border-radius: var(--radius-sm); border: 2px solid var(--accent-gold); box-shadow: 0 4px 15px rgba(0,0,0,0.1);" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Or Enter Image URL (Optional)</label>
+                <input type="url" id="port-image" class="form-input" placeholder="https://images.unsplash.com/photo-..." />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Project Description *</label>
+                <textarea id="port-desc" class="form-textarea" rows="2" placeholder="Brief description of the shoot..." required></textarea>
+              </div>
+
+              <button type="button" class="btn btn-primary" onclick="handleAddPortfolio(event)">Add Project to Showcase</button>
+            </form>
+          </div>
+
+          <!-- Existing Portfolio Grid -->
+          <h4 style="margin-bottom:16px;">Current Portfolio Items</h4>
+          <div id="admin-portfolio-grid" class="portfolio-grid">
+            <!-- Populated by app.js -->
+          </div>
+        </section>
+
+        <!-- PANEL 4: STUDIO SETTINGS -->
+        <section id="panel-settings" class="admin-panel">
+          <div class="admin-header">
+            <div>
+              <h2 style="font-size: 1.8rem;">Studio Settings</h2>
+              <p style="color: var(--text-muted); font-size: 0.9rem;">Manage studio contact details, location, and phone number.</p>
+            </div>
+          </div>
+
+          <div class="table-card" style="padding:32px; max-width:600px;">
+            <form id="settings-form" onsubmit="handleSettingsSubmit(event); return false;">
+              <div class="form-group">
+                <label class="form-label">Studio Name</label>
+                <input type="text" class="form-input" value="Narasimha Stills" readonly />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Owner / Chief Photographer</label>
+                <input type="text" class="form-input" value="Narasimharao" readonly />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Contact Phone</label>
+                <input type="text" id="settings-phone" class="form-input" value="+91 8374571213" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input type="email" id="settings-email" class="form-input" value="lingamallutharunmanikanta@gmail.com" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Studio Address</label>
+                <input type="text" id="settings-address" class="form-input" value="Sampath Nagar, Guntur, Andhra Pradesh 522004" required />
+              </div>
+              <button type="button" class="btn btn-primary" onclick="handleSettingsSubmit(event)">Save Settings Live to Website</button>
+            </form>
+          </div>
+        </section>
+
+        <!-- PANEL 5: MANAGE PACKAGES & ADD-ONS -->
+        <section id="panel-pricing" class="admin-panel">
+          <div class="admin-header">
+            <div>
+              <h2 style="font-size: 1.8rem;">Manage Packages & Pricing Add-Ons</h2>
+              <p style="color: var(--text-muted); font-size: 0.9rem;">Edit base package prices and add-on services live for the public website and calculator.</p>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
+            <!-- Base Package Prices Card -->
+            <div class="table-card" style="padding:28px;">
+              <h4 style="margin-bottom: 20px; color: var(--accent-gold-dark); font-size: 1.15rem;">📦 Edit Main Package Prices</h4>
+              <form id="admin-packages-form" onsubmit="handlePackagesSubmit(event); return false;">
+                <div class="form-group">
+                  <label class="form-label">Pre-Wedding Shoot Package Price (₹)</label>
+                  <input type="number" id="pkg-price-prewedding" class="form-input" value="30000" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Wedding Package Price (₹)</label>
+                  <input type="number" id="pkg-price-wedding" class="form-input" value="250000" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Baby Milestone Shoot Price (₹)</label>
+                  <input type="number" id="pkg-price-baby" class="form-input" value="25000" required />
+                </div>
+                <div id="pkg-save-alert" style="display:none; background: #10B981; color: #FFFFFF; font-weight: 700; font-size: 0.9rem; padding: 12px; border-radius: var(--radius-sm); margin-bottom: 16px; text-align: center; box-shadow: 0 4px 15px rgba(16,185,129,0.3);">✓ Package Prices Saved Live!</div>
+                <button type="button" class="btn btn-primary" style="width: 100%;" onclick="handlePackagesSubmit(event)">Save Package Prices Live</button>
+              </form>
+            </div>
+
+            <!-- Add-Ons Manager Card -->
+            <div class="table-card" style="padding:28px;">
+              <div style="margin-bottom:20px;">
+                <h4 style="color: var(--accent-gold-dark); font-size: 1.15rem; margin-bottom: 4px;">⚡ Manage Add-On Services & Pricing</h4>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">Add custom options or edit prices for live calculator & packages.</p>
+              </div>
+              
+              <!-- Quick Add New Add-On Form -->
+              <form id="admin-add-addon-form" onsubmit="handleAddAddonSubmit(event); return false;" style="background: rgba(212, 175, 55, 0.08); padding: 16px; border-radius: var(--radius-sm); border: 1px dashed var(--border-color); margin-bottom: 24px;">
+                <div style="font-size: 0.88rem; font-weight: 700; color: var(--accent-gold-dark); margin-bottom: 10px;">+ Create New Custom Add-On Option</div>
+                <div class="form-row" style="gap: 10px; margin-bottom: 10px;">
+                  <input type="text" id="new-addon-title" class="form-input" placeholder="Add-On Name (e.g. Reel Film)" required />
+                  <input type="number" id="new-addon-price" class="form-input" placeholder="Price (₹)" required />
+                </div>
+                <button type="button" class="btn btn-sm btn-primary" style="width: 100%;" onclick="handleAddAddonSubmit(event)">+ Add Custom Add-On Service</button>
+              </form>
+
+              <!-- Dynamic Add-Ons List -->
+              <div id="admin-addons-list" style="display: flex; flex-direction: column; gap: 14px;">
+                <!-- Populated by app.js -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- JavaScript Logic -->
+  <script src="app.js?v=6.0"></script>
+</body>
+</html>

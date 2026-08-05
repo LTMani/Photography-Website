@@ -1,0 +1,13 @@
+{
+  "name": "narasimha-stills-website",
+  "version": "1.0.0",
+  "description": "Luxury Wedding & Portrait Photography Studio Website with Admin Portal",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx -y serve .",
+    "dev": "npx -y serve ."
+  },
+  "keywords": ["photography", "guntur", "narasimha-stills", "admin-dashboard"],
+  "author": "Narasimharao",
+  "license": "ISC"
+}
