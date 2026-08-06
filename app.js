@@ -666,14 +666,49 @@ function setupEventListeners() {
   }
 
   const baInput = document.getElementById('ba-slider-input');
+  const baSlider = document.getElementById('ba-slider');
   const baBeforeWrapper = document.getElementById('ba-before-wrapper');
   const baHandle = document.getElementById('ba-handle');
 
-  if (baInput && baBeforeWrapper && baHandle) {
-    baInput.addEventListener('input', (e) => {
-      const val = e.target.value;
-      baBeforeWrapper.style.width = `${val}%`;
-      baHandle.style.left = `${val}%`;
+  if (baInput && baSlider && baHandle) {
+    const updateSlider = (val) => {
+      const clampedVal = Math.max(0, Math.min(100, parseFloat(val) || 50));
+      baSlider.style.setProperty('--ba-val', `${clampedVal}%`);
+      baHandle.style.left = `${clampedVal}%`;
+      if (baBeforeWrapper) {
+        baBeforeWrapper.style.clipPath = `inset(0 ${100 - clampedVal}% 0 0)`;
+      }
+    };
+
+    baInput.addEventListener('input', (e) => updateSlider(e.target.value));
+    baInput.addEventListener('change', (e) => updateSlider(e.target.value));
+
+    let isDragging = false;
+    const processMove = (clientX) => {
+      const rect = baSlider.getBoundingClientRect();
+      if (!rect.width) return;
+      const x = clientX - rect.left;
+      const pct = (x / rect.width) * 100;
+      const clamped = Math.max(0, Math.min(100, pct));
+      updateSlider(clamped);
+      baInput.value = clamped;
+    };
+
+    baSlider.addEventListener('pointerdown', (e) => {
+      isDragging = true;
+      processMove(e.clientX);
+    });
+
+    window.addEventListener('pointermove', (e) => {
+      if (isDragging) processMove(e.clientX);
+    });
+
+    window.addEventListener('pointerup', () => {
+      isDragging = false;
+    });
+
+    window.addEventListener('pointercancel', () => {
+      isDragging = false;
     });
   }
 
