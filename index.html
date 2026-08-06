@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="styles.css?v=21.0" />
+  <link rel="stylesheet" href="styles.css?v=22.0" />
 </head>
 <body>
 
@@ -32,26 +32,35 @@
           </div>
         </a>
         
-        <ul class="nav-menu">
+        <ul class="nav-menu" id="main-nav-menu">
+          <li class="mobile-drawer-header">
+            <div class="brand-logo" style="margin: 0;">
+              <div class="brand-icon">N</div>
+              <div class="brand-text">
+                <h2 style="font-size: 1.15rem; color: var(--text-main) !important;">Narasimha Stills</h2>
+                <span>Est. 2004 • Guntur</span>
+              </div>
+            </div>
+            <button class="mobile-close-btn" onclick="toggleMobileMenu(event)" aria-label="Close Menu">✕ Close</button>
+          </li>
           <li><a href="#home" class="nav-link active" onclick="scrollToSection('home')">Home</a></li>
           <li><a href="#founder" class="nav-link" onclick="scrollToSection('founder')">Founder</a></li>
           <li><a href="#about" class="nav-link" onclick="scrollToSection('about')">About</a></li>
           <li><a href="#portfolio" class="nav-link" onclick="scrollToSection('portfolio')">Portfolio</a></li>
           <li><a href="#packages" class="nav-link" onclick="scrollToSection('packages')">Packages</a></li>
-          <li><a href="#calculator" class="nav-link" onclick="scrollToSection('calculator')">Cost Calculator</a></li>
+          <li><a href="#calculator" class="nav-link" onclick="scrollToSection('calculator')">Calculator</a></li>
           <li><a href="#reviews" class="nav-link" onclick="scrollToSection('reviews')">Reviews</a></li>
-          <li><a href="#faq" class="nav-link" onclick="scrollToSection('faq')">FAQs</a></li>
           <li><a href="#contact" class="nav-link" onclick="scrollToSection('contact')">Contact</a></li>
-          <li class="mobile-cta-wrapper" style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px; padding-top: 16px; border-top: 1px solid var(--border-color);">
+          <li class="mobile-cta-wrapper">
             <a href="#contact" class="btn btn-primary" onclick="scrollToBooking(); toggleMobileMenu();" style="width: 100%;">Book Session</a>
             <button class="btn btn-outline" onclick="openLoginModal(event); toggleMobileMenu();" style="width: 100%; color: var(--accent-gold-dark);">⚙ Staff Login</button>
           </li>
         </ul>
 
         <div class="nav-actions">
-          <button id="open-login-btn" class="btn btn-outline nav-desktop-only" onclick="openLoginModal(event)">Staff Login</button>
-          <a href="#contact" class="btn btn-primary nav-desktop-only" onclick="scrollToBooking()">Book Session</a>
-          <button id="mobile-menu-toggle" class="mobile-toggle-btn" aria-label="Toggle Navigation Menu" onclick="toggleMobileMenu(event)" ontouchstart="toggleMobileMenu(event)">☰</button>
+          <button id="open-login-btn" class="btn btn-outline nav-staff-btn" onclick="openLoginModal(event)">Staff Login</button>
+          <a href="#contact" class="btn btn-primary nav-book-btn" onclick="scrollToBooking()">Book Session</a>
+          <button id="mobile-menu-toggle" class="mobile-toggle-btn" aria-label="Toggle Navigation Menu" onclick="toggleMobileMenu(event)">☰</button>
         </div>
       </div>
     </header>
@@ -904,6 +913,6 @@
   </div>
 
   <!-- JavaScript Logic -->
-  <script src="app.js?v=21.0"></script>
+  <script src="app.js?v=22.0"></script>
 </body>
 </html>

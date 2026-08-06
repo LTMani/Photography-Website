@@ -1126,34 +1126,17 @@ function startHeroCaptionLoop() {
   }
 
   let quoteIndex = 0;
-  let quoteCharIndex = 0;
-  let isDeletingQuote = false;
+  quoteElem.innerText = quotes[0];
+  quoteElem.style.transition = 'opacity 0.4s ease';
 
-  function typeQuote() {
-    const targetQuote = quotes[quoteIndex];
-
-    if (isDeletingQuote) {
-      quoteElem.innerText = targetQuote.substring(0, quoteCharIndex - 1);
-      quoteCharIndex--;
-    } else {
-      quoteElem.innerText = targetQuote.substring(0, quoteCharIndex + 1);
-      quoteCharIndex++;
-    }
-
-    let speed = isDeletingQuote ? 15 : 30;
-
-    if (!isDeletingQuote && quoteCharIndex === targetQuote.length) {
-      speed = 2200;
-      isDeletingQuote = true;
-    } else if (isDeletingQuote && quoteCharIndex === 0) {
-      isDeletingQuote = false;
+  setInterval(() => {
+    quoteElem.style.opacity = '0';
+    setTimeout(() => {
       quoteIndex = (quoteIndex + 1) % quotes.length;
-      speed = 300;
-    }
-
-    setTimeout(typeQuote, speed);
-  }
+      quoteElem.innerText = quotes[quoteIndex];
+      quoteElem.style.opacity = '1';
+    }, 400);
+  }, 5000);
 
   typeWord();
-  typeQuote();
 }
