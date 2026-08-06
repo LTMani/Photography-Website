@@ -1634,21 +1634,23 @@ footer h1, footer h2, footer h3, footer h4 {
     top: 100%;
     left: 0;
     right: 0;
-    background: rgba(250, 247, 242, 0.98);
-    backdrop-filter: blur(25px);
+    background: #FAF7F2 !important;
     flex-direction: column;
     padding: 24px 30px;
     gap: 16px;
-    border-bottom: 1.5px solid var(--border-color);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    border-bottom: 2px solid var(--accent-gold);
+    box-shadow: 0 20px 45px rgba(15, 23, 42, 0.18);
     transform: translateY(-20px);
     opacity: 0;
+    visibility: hidden;
     pointer-events: none;
-    transition: all 0.35s ease;
+    transition: all 0.3s ease;
+    z-index: 999999;
   }
   .nav-menu.mobile-active {
     transform: translateY(0);
     opacity: 1;
+    visibility: visible;
     pointer-events: all;
   }
   .nav-link {

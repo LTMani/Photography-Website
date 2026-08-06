@@ -208,6 +208,22 @@ window.scrollToBooking = function(serviceName) {
   }
 };
 
+window.toggleMobileMenu = function(e) {
+  if (e) {
+    if (typeof e.preventDefault === 'function') e.preventDefault();
+    if (typeof e.stopPropagation === 'function') e.stopPropagation();
+  }
+  const navMenu = document.querySelector('.nav-menu');
+  const mobileToggleBtn = document.getElementById('mobile-menu-toggle');
+  if (navMenu) {
+    navMenu.classList.toggle('mobile-active');
+    if (mobileToggleBtn) {
+      mobileToggleBtn.innerText = navMenu.classList.contains('mobile-active') ? '✕' : '☰';
+    }
+  }
+  return false;
+};
+
 window.filterPortfolioTab = function(category, targetBtn) {
   const filterBtns = document.querySelectorAll('.filter-btn');
   filterBtns.forEach(b => b.classList.remove('active'));
