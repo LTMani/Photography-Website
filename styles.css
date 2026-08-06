@@ -35,12 +35,16 @@
   box-sizing: border-box;
 }
 
-html {
+html, body {
   scroll-behavior: smooth;
   font-family: var(--font-sans);
   background-color: var(--bg-dark);
   color: var(--text-main);
   line-height: 1.6;
+  overflow-x: hidden !important;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
 }
 
 body {
@@ -1677,20 +1681,20 @@ footer .brand-text h2 {
   box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
-/* Comprehensive Responsive Breakpoints */
-@media (max-width: 1200px) {
+/* Comprehensive Responsive & Laptop Breakpoints */
+@media (max-width: 1366px) {
   .nav-container {
-    padding: 0 24px;
+    padding: 0 20px;
   }
   .nav-menu {
-    gap: 16px;
+    gap: clamp(4px, 1vw, 10px);
   }
   .nav-link {
-    font-size: 0.9rem;
-    padding: 6px 12px;
+    font-size: 0.82rem;
+    padding: 5px 8px;
   }
   .hero-title {
-    font-size: 3rem;
+    font-size: 2.8rem;
   }
 }
 
@@ -1698,7 +1702,7 @@ footer .brand-text h2 {
   display: none !important;
 }
 
-@media (max-width: 1180px) {
+@media (max-width: 1280px) {
   .nav-desktop-only {
     display: none !important;
   }
