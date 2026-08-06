@@ -1640,7 +1640,7 @@ footer h1, footer h2, footer h3, footer h4 {
     padding: 12px 20px;
     font-size: 1.05rem;
   }
-  .hero-grid, .contact-grid, .founder-grid {
+  .hero-grid, .contact-grid, .founder-grid, .calc-grid {
     grid-template-columns: 1fr;
     gap: 40px;
   }
@@ -1667,36 +1667,69 @@ footer h1, footer h2, footer h3, footer h4 {
   }
 }
 
+@media (max-width: 768px) {
+  .ba-slider {
+    height: 320px;
+  }
+  .ba-handle-circle {
+    width: 36px;
+    height: 36px;
+    font-size: 0.85rem;
+  }
+  .founder-metrics-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+  .packages-grid, .reviews-grid, .kpi-grid {
+    grid-template-columns: 1fr;
+  }
+  .calc-summary-box {
+    padding: 22px;
+  }
+}
+
 @media (max-width: 640px) {
   .nav-container {
-    padding: 0 18px;
+    padding: 0 12px;
   }
   .brand-logo {
-    margin-right: 10px;
+    margin-right: 6px;
+    gap: 8px;
+  }
+  .brand-icon {
+    width: 34px;
+    height: 34px;
+    font-size: 1rem;
   }
   .brand-text h2 {
-    font-size: 1.2rem;
+    font-size: 1.05rem;
   }
   .brand-text span {
-    font-size: 0.65rem;
+    font-size: 0.58rem;
+    letter-spacing: 1px;
   }
   .nav-actions {
-    margin-left: 10px;
-    gap: 10px;
+    margin-left: 4px;
+    gap: 6px;
   }
   .nav-actions .btn {
-    padding: 8px 14px;
-    font-size: 0.8rem;
+    padding: 7px 11px;
+    font-size: 0.75rem;
   }
   .hero {
-    padding-top: 120px;
-    padding-bottom: 60px;
+    padding-top: 105px;
+    padding-bottom: 50px;
   }
-  .hero-title, .founder-title {
-    font-size: 2.2rem;
+  .hero-title {
+    font-size: 1.95rem;
+    line-height: 1.25;
+  }
+  .founder-title {
+    font-size: 1.85rem;
   }
   .section-title {
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
   .packages-grid, .reviews-grid, .stats-grid, .kpi-grid {
     grid-template-columns: 1fr;
@@ -1704,35 +1737,40 @@ footer h1, footer h2, footer h3, footer h4 {
   .form-row {
     grid-template-columns: 1fr;
   }
-  .founder-metrics-row {
-    flex-wrap: wrap;
-    gap: 25px;
-  }
   .footer-grid {
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 25px;
   }
   .table-card {
     overflow-x: auto;
   }
+  .booking-form-card, .contact-info-card, .table-card {
+    padding: 20px 16px;
+  }
 }
 
 @media (max-width: 480px) {
-  .hero-title, .founder-title {
-    font-size: 2rem;
+  #open-login-btn {
+    display: none;
+  }
+  .hero-title {
+    font-size: 1.7rem;
+  }
+  .founder-title {
+    font-size: 1.65rem;
   }
   .hero-description {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
   .hero-quote-box {
-    padding: 10px 16px;
-    min-height: 48px;
+    padding: 8px 12px;
+    min-height: 44px;
   }
   .hero-quote-mark {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
   .hero-quote-text {
-    font-size: 0.88rem;
+    font-size: 0.82rem;
   }
   .hero-cta {
     flex-direction: column;
@@ -1748,9 +1786,13 @@ footer h1, footer h2, footer h3, footer h4 {
     overflow-x: auto;
     padding-bottom: 8px;
     justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
   }
   .filter-btn {
     flex-shrink: 0;
+  }
+  .ba-slider {
+    height: 260px;
   }
 }
 
