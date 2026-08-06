@@ -3,50 +3,7 @@
    ========================================================================== */
 
 // Initial State Data (Backed by localStorage if present)
-const defaultPortfolio = [
-  {
-    id: 'p1',
-    title: 'Royal Traditional Telugu Wedding',
-    category: 'wedding',
-    description: 'Grand traditional South Indian wedding ceremony captured with sacred rituals and golden lighting.',
-    image: 'https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    id: 'p2',
-    title: 'Golden Hour Pre-Wedding Romance',
-    category: 'prewedding',
-    description: 'Romantic pre-wedding silhouettes and intimate moments against breathtaking sunset backdrops.',
-    image: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    id: 'p3',
-    title: 'Authentic Bride Emotions & Mehendi',
-    category: 'wedding',
-    description: 'Unposed, authentic smiles and joyful laughter during pre-wedding mehendi celebrations.',
-    image: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    id: 'p4',
-    title: 'Traditional Kanjeevaram Saree Portrait',
-    category: 'portraits',
-    description: 'Regal portraiture highlighting intricate silk sarees, heavy gold jewelry, and classical grace.',
-    image: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    id: 'p5',
-    title: 'Magical Baby Milestone & First Birthday',
-    category: 'baby',
-    description: 'Adorable newborn and toddler studio portraits with soft pastel themes and cheerful smiles.',
-    image: 'https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    id: 'p6',
-    title: 'Cinematic Mandap & Sacred Fire',
-    category: 'wedding',
-    description: 'Stunning wide-angle cinematic perspective of the wedding mandap and sacred fire.',
-    image: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80'
-  }
-];
+const defaultPortfolio = [];
 
 const defaultBookings = [
   {
@@ -128,11 +85,16 @@ window.openLoginModal = function(e) {
   }
 };
 
-window.closeLoginModal = function() {
+window.closeLoginModal = function(e) {
+  if (e) {
+    if (typeof e.preventDefault === 'function') e.preventDefault();
+    if (typeof e.stopPropagation === 'function') e.stopPropagation();
+  }
   const loginOverlay = document.getElementById('login-modal');
   if (loginOverlay) {
     loginOverlay.classList.remove('active');
   }
+  return false;
 };
 
 window.handleLoginDirect = function(e) {
@@ -297,6 +259,31 @@ window.handleCalculatorBooking = function() {
   window.scrollToBooking(serviceName);
 };
 
+window.calculateEstimate = function() {
+  const calcEvent = document.getElementById('calc-event');
+  const calcDays = document.getElementById('calc-days');
+  const calcEventPrice = document.getElementById('calc-event-price');
+  const calcAddonsPrice = document.getElementById('calc-addons-price');
+  const calcTotal = document.getElementById('calc-total');
+
+  if (!calcEvent || !calcDays) return;
+  const basePrice = parseFloat(calcEvent.value) || 0;
+  const multiplier = parseFloat(calcDays.value) || 1;
+  const subtotalEvent = basePrice * multiplier;
+
+  let addonsTotal = 0;
+  const currentAddons = document.querySelectorAll('.calc-addon');
+  currentAddons.forEach(cb => {
+    if (cb.checked) addonsTotal += parseFloat(cb.value) || 0;
+  });
+
+  const total = subtotalEvent + addonsTotal;
+
+  if (calcEventPrice) calcEventPrice.innerText = `₹${subtotalEvent.toLocaleString('en-IN')}`;
+  if (calcAddonsPrice) calcAddonsPrice.innerText = `₹${addonsTotal.toLocaleString('en-IN')}`;
+  if (calcTotal) calcTotal.innerText = `₹${total.toLocaleString('en-IN')}`;
+};
+
 window.handleAddPortfolio = function(e) {
   if (e) e.preventDefault();
   const title = document.getElementById('port-title').value.trim();
@@ -417,6 +404,7 @@ window.handleAddAddonSubmit = function(e) {
 
   renderAdminAddons();
   applyLivePricing();
+  alert(`✓ Custom Add-On "${title}" (₹${price.toLocaleString('en-IN')}) created live!`);
   showToast(`New add-on "${title}" created live!`);
   const form = document.getElementById('admin-add-addon-form');
   if (form) form.reset();
@@ -557,17 +545,18 @@ function applyLivePricing() {
   if (checkboxContainer) {
     checkboxContainer.innerHTML = addons.map((item, idx) => `
       <label class="calc-checkbox">
-        <input type="checkbox" class="calc-addon" value="${item.price}" ${idx < 2 ? 'checked' : ''} />
+        <input type="checkbox" class="calc-addon" value="${item.price}" ${idx < 2 ? 'checked' : ''} onchange="window.calculateEstimate()" />
         ${item.title} (+₹${item.price.toLocaleString('en-IN')})
       </label>
     `).join('');
 
     document.querySelectorAll('.calc-addon').forEach(cb => {
-      cb.addEventListener('change', calculateEstimate);
+      cb.addEventListener('change', () => window.calculateEstimate());
+      cb.addEventListener('input', () => window.calculateEstimate());
     });
   }
 
-  if (typeof calculateEstimate === 'function') calculateEstimate();
+  if (typeof window.calculateEstimate === 'function') window.calculateEstimate();
 }
 
 function applyLiveSettings() {
@@ -595,6 +584,20 @@ function renderPortfolio(category = 'all') {
 
   const items = getPortfolio();
   const filtered = category === 'all' ? items : items.filter(item => item.category === category);
+
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div style="grid-column: 1/-1; text-align:center; padding: 60px 20px; background: #FFFFFF; border-radius: var(--radius-md); border: 2px dashed var(--border-color); box-shadow: var(--shadow-card);">
+        <div style="font-size: 2.8rem; margin-bottom: 12px; color: var(--accent-gold-dark);">🖼</div>
+        <h3 style="font-size: 1.35rem; margin-bottom: 8px; color: var(--text-main);">No Portfolio Projects Added Yet</h3>
+        <p style="color: var(--text-muted); font-size: 0.94rem; max-width: 480px; margin: 0 auto 16px auto;">
+          Use the <strong>Staff Admin Portal</strong> to upload your own custom photo projects & galleries!
+        </p>
+        <button class="btn btn-sm btn-primary" onclick="openLoginModal(event)">Open Staff Admin Portal</button>
+      </div>
+    `;
+    return;
+  }
 
   container.innerHTML = filtered.map(item => `
     <div class="portfolio-card" data-category="${item.category}">

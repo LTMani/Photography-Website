@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="styles.css?v=12.0" />
+  <link rel="stylesheet" href="styles.css?v=13.0" />
 </head>
 <body>
 
@@ -579,29 +579,23 @@
   <!-- ==========================================================================
        STAFF LOGIN MODAL
        ========================================================================== -->
-  <div id="login-modal" class="modal-overlay">
+  <div id="login-modal" class="modal-overlay" onclick="if(event.target===this) closeLoginModal(event)">
     <div class="modal-box">
-      <button id="close-login-btn" class="modal-close">&times;</button>
+      <button id="close-login-btn" class="modal-close" onclick="closeLoginModal(event)">&times;</button>
       <div style="text-align: center; margin-bottom: 24px;">
         <div class="brand-icon" style="margin: 0 auto 12px auto;">N</div>
         <h2 style="font-size: 1.6rem;">Studio Staff Login</h2>
         <p style="color: var(--text-muted); font-size: 0.88rem;">Access Narasimha Stills Admin Dashboard</p>
       </div>
 
-      <div class="demo-hint">
-        <strong>Demo Login Credentials:</strong><br />
-        Username: <code style="color:var(--accent-gold)">admin</code><br />
-        Password: <code style="color:var(--accent-gold)">narasimha2004</code>
-      </div>
-
       <form id="login-form" onsubmit="handleLoginDirect(event)">
         <div class="form-group">
           <label class="form-label">Username</label>
-          <input type="text" id="login-user" class="form-input" value="admin" required />
+          <input type="text" id="login-user" class="form-input" placeholder="Enter staff username" required />
         </div>
         <div class="form-group">
           <label class="form-label">Password</label>
-          <input type="password" id="login-pass" class="form-input" value="narasimha2004" required />
+          <input type="password" id="login-pass" class="form-input" placeholder="Enter staff password" required />
         </div>
         <button type="submit" class="btn btn-primary" style="width:100%; margin-top: 10px;" onclick="handleLoginDirect(event)">Log In to Dashboard</button>
       </form>
@@ -901,6 +895,6 @@
   </div>
 
   <!-- JavaScript Logic -->
-  <script src="app.js?v=12.0"></script>
+  <script src="app.js?v=13.0"></script>
 </body>
 </html>
