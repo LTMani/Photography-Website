@@ -360,7 +360,9 @@ window.handleSettingsSubmit = function(e) {
   const newSettings = { phone, email, address };
   localStorage.setItem('ns_settings', JSON.stringify(newSettings));
   applyLiveSettings();
+  alert(`✓ Studio Contact Details saved live!\nPhone: ${phone}\nEmail: ${email}\nAddress: ${address}`);
   showToast('Studio Settings updated live on website!');
+  return false;
 };
 
 window.handlePackagesSubmit = function(e) {
@@ -372,14 +374,18 @@ window.handlePackagesSubmit = function(e) {
   const wedInput = document.getElementById('pkg-price-wedding');
   const babyInput = document.getElementById('pkg-price-baby');
 
-  const currentPricing = {
-    pkgPrewedding: preInput ? (parseFloat(preInput.value) || 30000) : 30000,
-    pkgWedding: wedInput ? (parseFloat(wedInput.value) || 250000) : 250000,
-    pkgBaby: babyInput ? (parseFloat(babyInput.value) || 25000) : 25000
-  };
+  const preVal = preInput ? parseFloat(preInput.value) : NaN;
+  const wedVal = wedInput ? parseFloat(wedInput.value) : NaN;
+  const babyVal = babyInput ? parseFloat(babyInput.value) : NaN;
+
+  const currentPricing = getPricing();
+  if (!isNaN(preVal) && preVal > 0) currentPricing.pkgPrewedding = preVal;
+  if (!isNaN(wedVal) && wedVal > 0) currentPricing.pkgWedding = wedVal;
+  if (!isNaN(babyVal) && babyVal > 0) currentPricing.pkgBaby = babyVal;
 
   localStorage.setItem('ns_pricing', JSON.stringify(currentPricing));
   applyLivePricing();
+  refreshHomePageData();
 
   const alertBanner = document.getElementById('pkg-save-alert');
   if (alertBanner) {
@@ -390,7 +396,7 @@ window.handlePackagesSubmit = function(e) {
   }
 
   showToast('✓ Package Prices saved live to website & calculator!');
-  alert('✓ Package Prices saved live to website & calculator!');
+  alert(`✓ Package Prices Saved Live!\nWedding: ₹${currentPricing.pkgWedding.toLocaleString('en-IN')}\nPre-Wedding: ₹${currentPricing.pkgPrewedding.toLocaleString('en-IN')}\nBaby Shoot: ₹${currentPricing.pkgBaby.toLocaleString('en-IN')}`);
   return false;
 };
 
@@ -524,15 +530,38 @@ function getBookings() {
 }
 
 function getSettings() {
-  return JSON.parse(localStorage.getItem('ns_settings')) || defaultSettings;
+  try {
+    const data = localStorage.getItem('ns_settings');
+    if (!data) return defaultSettings;
+    return JSON.parse(data) || defaultSettings;
+  } catch (e) {
+    return defaultSettings;
+  }
 }
 
 function getPricing() {
-  return JSON.parse(localStorage.getItem('ns_pricing')) || defaultPricing;
+  try {
+    const data = localStorage.getItem('ns_pricing');
+    if (!data) return defaultPricing;
+    const parsed = JSON.parse(data);
+    return {
+      pkgPrewedding: typeof parsed.pkgPrewedding === 'number' ? parsed.pkgPrewedding : 30000,
+      pkgWedding: typeof parsed.pkgWedding === 'number' ? parsed.pkgWedding : 250000,
+      pkgBaby: typeof parsed.pkgBaby === 'number' ? parsed.pkgBaby : 25000
+    };
+  } catch (e) {
+    return defaultPricing;
+  }
 }
 
 function getAddons() {
-  return JSON.parse(localStorage.getItem('ns_addons')) || defaultAddons;
+  try {
+    const data = localStorage.getItem('ns_addons');
+    if (!data) return defaultAddons;
+    return JSON.parse(data) || defaultAddons;
+  } catch (e) {
+    return defaultAddons;
+  }
 }
 
 // Live Home Page Synchronization
@@ -542,6 +571,8 @@ function refreshHomePageData() {
   renderPortfolio(cat);
   applyLiveSettings();
   applyLivePricing();
+  loadAdminSettings();
+  loadAdminPricing();
 }
 
 function applyLivePricing() {
@@ -586,19 +617,43 @@ function applyLivePricing() {
 
 function applyLiveSettings() {
   const s = getSettings();
+  const cleanPhone = s.phone ? s.phone.replace(/[^\d+]/g, '') : '+918374571213';
   
+  // 1. Phone number links & text across entire website
   document.querySelectorAll('a[href^="tel:"]').forEach(el => {
-    el.href = `tel:${s.phone.replace(/\s+/g, '')}`;
+    el.href = `tel:${cleanPhone}`;
     if (el.innerText.includes('Call')) {
       el.innerText = `📞 Call ${s.phone}`;
+    } else if (el.innerText.includes('Phone:')) {
+      el.innerText = `Phone: ${s.phone}`;
     } else if (!el.children.length) {
       el.innerText = s.phone;
     }
   });
 
+  // 2. Footer Links
+  const footerPhone = document.getElementById('footer-phone-link');
+  if (footerPhone) {
+    footerPhone.href = `tel:${cleanPhone}`;
+    footerPhone.innerText = `Phone: ${s.phone}`;
+  }
+
+  const footerAddress = document.getElementById('footer-address-link');
+  if (footerAddress) {
+    footerAddress.innerText = s.address;
+  }
+
+  // 3. WhatsApp Links
+  const waClean = cleanPhone.replace('+', '');
+  const waUrl = `https://wa.me/${waClean}?text=Hi%20Narasimha%20Stills,%20I%20want%20to%20book%20a%20photo%20session.`;
+  document.querySelectorAll('a[href*="wa.me"]').forEach(el => {
+    el.href = waUrl;
+  });
+
+  // 4. Email links
   document.querySelectorAll('a[href^="mailto:"]').forEach(el => {
     el.href = `mailto:${s.email}`;
-    el.innerText = s.email;
+    if (!el.children.length) el.innerText = s.email;
   });
 }
 
