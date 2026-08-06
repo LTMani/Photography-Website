@@ -1628,9 +1628,20 @@ footer h1, footer h2, footer h3, footer h4 {
   }
 }
 
+.mobile-cta-wrapper {
+  display: none !important;
+}
+
 @media (max-width: 1180px) {
+  .nav-desktop-only {
+    display: none !important;
+  }
+  .mobile-cta-wrapper {
+    display: flex !important;
+  }
   .mobile-toggle-btn {
-    display: flex;
+    display: inline-flex !important;
+    margin-left: auto;
   }
   .nav-menu {
     position: fixed;

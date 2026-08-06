@@ -473,8 +473,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Storage Helpers
 function initStorage() {
-  if (!localStorage.getItem('ns_portfolio')) {
-    localStorage.setItem('ns_portfolio', JSON.stringify(defaultPortfolio));
+  const existing = localStorage.getItem('ns_portfolio');
+  if (!existing || existing.includes('p1') || existing.includes('Royal Traditional Telugu Wedding')) {
+    localStorage.setItem('ns_portfolio', JSON.stringify([]));
   }
   if (!localStorage.getItem('ns_bookings')) {
     localStorage.setItem('ns_bookings', JSON.stringify(defaultBookings));
@@ -491,7 +492,14 @@ function initStorage() {
 }
 
 function getPortfolio() {
-  return JSON.parse(localStorage.getItem('ns_portfolio')) || defaultPortfolio;
+  const data = localStorage.getItem('ns_portfolio');
+  if (!data) return [];
+  try {
+    const parsed = JSON.parse(data);
+    return Array.isArray(parsed) ? parsed.filter(item => item && item.id && !['p1','p2','p3','p4','p5','p6'].includes(item.id)) : [];
+  } catch (e) {
+    return [];
+  }
 }
 
 function getBookings() {

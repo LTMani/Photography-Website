@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="styles.css?v=13.0" />
+  <link rel="stylesheet" href="styles.css?v=15.0" />
 </head>
 <body>
 
@@ -40,12 +40,15 @@
           <li><a href="#packages" class="nav-link" onclick="scrollToSection('packages')">Packages</a></li>
           <li><a href="#reviews" class="nav-link" onclick="scrollToSection('reviews')">Reviews</a></li>
           <li><a href="#contact" class="nav-link" onclick="scrollToSection('contact')">Contact</a></li>
-          <li><a href="#login" class="nav-link nav-staff-link" style="color: var(--accent-gold-dark); font-weight: 800; border-top: 1px dashed var(--border-color); margin-top: 6px; padding-top: 12px;" onclick="openLoginModal(event)">⚙ Staff Admin Portal</a></li>
+          <li class="mobile-cta-wrapper" style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px; padding-top: 16px; border-top: 1px solid var(--border-color);">
+            <a href="#contact" class="btn btn-primary" onclick="scrollToBooking(); toggleMobileMenu();" style="width: 100%;">Book Session</a>
+            <button class="btn btn-outline" onclick="openLoginModal(event); toggleMobileMenu();" style="width: 100%; color: var(--accent-gold-dark);">⚙ Staff Login</button>
+          </li>
         </ul>
 
         <div class="nav-actions">
-          <button id="open-login-btn" class="btn btn-outline" onclick="openLoginModal(event)">Staff Login</button>
-          <a href="#contact" class="btn btn-primary" onclick="scrollToBooking()">Book Session</a>
+          <button id="open-login-btn" class="btn btn-outline nav-desktop-only" onclick="openLoginModal(event)">Staff Login</button>
+          <a href="#contact" class="btn btn-primary nav-desktop-only" onclick="scrollToBooking()">Book Session</a>
           <button id="mobile-menu-toggle" class="mobile-toggle-btn" aria-label="Toggle Navigation Menu" onclick="toggleMobileMenu(event)">☰</button>
         </div>
       </div>
@@ -895,6 +898,6 @@
   </div>
 
   <!-- JavaScript Logic -->
-  <script src="app.js?v=13.0"></script>
+  <script src="app.js?v=15.0"></script>
 </body>
 </html>
