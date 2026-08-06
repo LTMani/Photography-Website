@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="styles.css?v=17.0" />
+  <link rel="stylesheet" href="styles.css?v=18.0" />
 </head>
 <body>
 
@@ -51,7 +51,7 @@
         <div class="nav-actions">
           <button id="open-login-btn" class="btn btn-outline nav-desktop-only" onclick="openLoginModal(event)">Staff Login</button>
           <a href="#contact" class="btn btn-primary nav-desktop-only" onclick="scrollToBooking()">Book Session</a>
-          <button id="mobile-menu-toggle" class="mobile-toggle-btn" aria-label="Toggle Navigation Menu" onclick="toggleMobileMenu(event)">☰</button>
+          <button id="mobile-menu-toggle" class="mobile-toggle-btn" aria-label="Toggle Navigation Menu" onclick="toggleMobileMenu(event)" ontouchstart="toggleMobileMenu(event)">☰</button>
         </div>
       </div>
     </header>
@@ -902,6 +902,6 @@
   </div>
 
   <!-- JavaScript Logic -->
-  <script src="app.js?v=17.0"></script>
+  <script src="app.js?v=18.0"></script>
 </body>
 </html>

@@ -138,6 +138,12 @@ window.switchToPublicSite = function() {
 };
 
 window.scrollToSection = function(sectionId) {
+  const navMenu = document.querySelector('.nav-menu');
+  const mobileToggleBtn = document.getElementById('mobile-menu-toggle');
+  if (navMenu && navMenu.classList.contains('mobile-active')) {
+    navMenu.classList.remove('mobile-active');
+    if (mobileToggleBtn) mobileToggleBtn.innerText = '☰';
+  }
   const elem = document.getElementById(sectionId);
   if (elem) {
     elem.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -145,6 +151,13 @@ window.scrollToSection = function(sectionId) {
 };
 
 window.scrollToBooking = function(serviceName) {
+  const navMenu = document.querySelector('.nav-menu');
+  const mobileToggleBtn = document.getElementById('mobile-menu-toggle');
+  if (navMenu && navMenu.classList.contains('mobile-active')) {
+    navMenu.classList.remove('mobile-active');
+    if (mobileToggleBtn) mobileToggleBtn.innerText = '☰';
+  }
+
   const contactSection = document.getElementById('contact');
   const serviceSelect = document.getElementById('book-service');
   const formCard = document.querySelector('.booking-form-card');
@@ -178,9 +191,13 @@ window.toggleMobileMenu = function(e) {
   const navMenu = document.querySelector('.nav-menu');
   const mobileToggleBtn = document.getElementById('mobile-menu-toggle');
   if (navMenu) {
-    navMenu.classList.toggle('mobile-active');
-    if (mobileToggleBtn) {
-      mobileToggleBtn.innerText = navMenu.classList.contains('mobile-active') ? '✕' : '☰';
+    const isActive = navMenu.classList.contains('mobile-active');
+    if (isActive) {
+      navMenu.classList.remove('mobile-active');
+      if (mobileToggleBtn) mobileToggleBtn.innerText = '☰';
+    } else {
+      navMenu.classList.add('mobile-active');
+      if (mobileToggleBtn) mobileToggleBtn.innerText = '✕';
     }
   }
   return false;

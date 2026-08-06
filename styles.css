@@ -1706,31 +1706,25 @@ footer h1, footer h2, footer h3, footer h4 {
     margin-left: auto;
   }
   .nav-menu {
+    display: none !important;
     position: fixed;
     top: 70px;
     left: 0;
     right: 0;
     bottom: 0;
+    width: 100vw;
+    height: calc(100vh - 70px);
     background: #FAF7F2 !important;
     overflow-y: auto;
-    display: flex;
     flex-direction: column;
     padding: 24px 24px 60px 24px;
     gap: 14px;
-    border-bottom: 3px solid var(--accent-gold);
-    box-shadow: 0 25px 60px rgba(15, 23, 42, 0.25);
-    transform: translateY(-100%);
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, visibility 0.3s ease;
-    z-index: 999999;
+    border-top: 2px solid var(--accent-gold);
+    box-shadow: 0 25px 60px rgba(15, 23, 42, 0.35);
+    z-index: 9999999 !important;
   }
   .nav-menu.mobile-active {
-    transform: translateY(0);
-    opacity: 1;
-    visibility: visible;
-    pointer-events: all;
+    display: flex !important;
   }
   .nav-link {
     width: 100%;
