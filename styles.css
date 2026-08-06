@@ -1702,7 +1702,7 @@ footer .brand-text h2 {
   display: none !important;
 }
 
-@media (max-width: 1280px) {
+@media (max-width: 1440px) {
   .nav-desktop-only {
     display: none !important;
   }
@@ -1790,6 +1790,9 @@ footer .brand-text h2 {
 }
 
 @media (max-width: 640px) {
+  .nav-actions a[href="#contact"].btn-primary {
+    display: none !important;
+  }
   .nav-container {
     padding: 0 12px;
   }
