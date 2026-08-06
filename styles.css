@@ -1751,7 +1751,9 @@ footer h1, footer h2, footer h3, footer h4 {
 
 @media (max-width: 480px) {
   #open-login-btn {
-    display: none;
+    display: inline-flex;
+    padding: 6px 10px;
+    font-size: 0.75rem;
   }
   .hero-title {
     font-size: 1.7rem;
