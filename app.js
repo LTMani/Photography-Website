@@ -73,6 +73,10 @@ window.switchAdminPanel = function(panelName, targetBtn) {
   document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
   const panelElem = document.getElementById(`panel-${panelName}`);
   if (panelElem) panelElem.classList.add('active');
+
+  if (panelName === 'settings') {
+    loadAdminSettings();
+  }
 };
 
 window.openLoginModal = function(e) {
@@ -888,6 +892,11 @@ function setupEventListeners() {
   const settingsForm = document.getElementById('settings-form');
   if (settingsForm) {
     settingsForm.addEventListener('submit', (e) => window.handleSettingsSubmit(e));
+  }
+
+  const credsForm = document.getElementById('admin-creds-form');
+  if (credsForm) {
+    credsForm.addEventListener('submit', (e) => window.handleAdminCredsSubmit(e));
   }
 
   const logoutBtn = document.getElementById('admin-logout-btn');
