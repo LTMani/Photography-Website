@@ -6,13 +6,22 @@
   <title>Narasimha Stills | Luxury Wedding & Portrait Photography Studio</title>
   <meta name="description" content="Premier luxury wedding and portrait photography studio led by Narasimharao with over 20 years of excellence in Guntur, Andhra Pradesh." />
   
+  <!-- OpenGraph Social Link Preview Meta Tags for WhatsApp & Social Media -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://photography-website-tbvs.onrender.com" />
+  <meta property="og:title" content="Narasimha Stills | Luxury Wedding & Event Photography" />
+  <meta property="og:description" content="Guntur's premier luxury photography studio by Narasimharao with 20+ years mastery in weddings, pre-weddings & portraits." />
+  <meta property="og:image" content="https://photography-website-tbvs.onrender.com/whatsapp_logo.png" />
+  <meta property="og:site_name" content="Narasimha Stills Studio" />
+  <meta name="theme-color" content="#0F172A" />
+  
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="styles.css?v=22.0" />
+  <link rel="stylesheet" href="styles.css?v=24.0" />
 </head>
 <body>
 
@@ -222,6 +231,7 @@
           <button class="filter-btn" data-filter="prewedding" onclick="filterPortfolioTab('prewedding', this)">Pre-Wedding</button>
           <button class="filter-btn" data-filter="portraits" onclick="filterPortfolioTab('portraits', this)">Bridal Portraits</button>
           <button class="filter-btn" data-filter="baby" onclick="filterPortfolioTab('baby', this)">Baby Milestones</button>
+          <button class="filter-btn" data-filter="video" onclick="filterPortfolioTab('video', this)">🎬 4K Video Teasers</button>
         </div>
 
         <!-- Dynamic Grid -->
@@ -238,6 +248,11 @@
           <span class="section-tag">Packages & Pricing</span>
           <h2 class="section-title">Tailored Photography Packages</h2>
           <p class="section-subtitle">Transparent pricing designed for weddings, pre-wedding shoots, and baby celebrations.</p>
+          <div style="margin-top: 16px;">
+            <button class="btn btn-outline" onclick="downloadStudioBrochure()" style="border-color: var(--accent-gold); color: var(--accent-gold-dark); font-weight: 700;">
+              📥 Download Studio Rate Sheet (PDF)
+            </button>
+          </div>
         </div>
 
         <div class="packages-grid">
@@ -405,6 +420,11 @@
         <div class="section-header">
           <span class="section-tag">Client Love</span>
           <h2 class="section-title">Words From Our Couples & Families</h2>
+          <div style="margin-top: 12px;">
+            <button class="btn btn-outline" onclick="openReviewModal()" style="border-color: var(--accent-gold); color: var(--accent-gold-dark); font-weight: 700;">
+              ✍️ Leave a Client Review
+            </button>
+          </div>
         </div>
 
         <div class="reviews-grid">
@@ -524,7 +544,10 @@
               <textarea id="book-notes" class="form-textarea" rows="3" placeholder="Tell us about your venue in Guntur / Andhra Pradesh, number of guests, or drone requirements..."></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary" style="width: 100%;" onclick="handleBookingSubmit(event)">Submit Booking Inquiry</button>
+            <button type="submit" class="btn btn-primary" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;" onclick="handleBookingSubmit(event)">
+              <img src="whatsapp_logo.png" alt="WhatsApp" style="width: 20px; height: 20px; object-fit: contain;" />
+              <span>Submit Inquiry & Chat Direct on WhatsApp</span>
+            </button>
           </form>
         </div>
       </div>
@@ -622,6 +645,45 @@
 
 
   <!-- ==========================================================================
+       CLIENT REVIEW SUBMISSION MODAL
+       ========================================================================== -->
+  <div id="review-modal" class="modal-overlay" onclick="if(event.target===this) closeReviewModal(event)">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeReviewModal(event)">&times;</button>
+      <div style="text-align: center; margin-bottom: 24px;">
+        <div class="brand-icon" style="margin: 0 auto 12px auto;">⭐</div>
+        <h2 style="font-size: 1.5rem;">Leave a Client Review</h2>
+        <p style="color: var(--text-muted); font-size: 0.88rem;">Share your experience with Narasimha Stills</p>
+      </div>
+
+      <form id="review-form" onsubmit="handleReviewSubmit(event); return false;">
+        <div class="form-group">
+          <label class="form-label">Your Name / Couple Name *</label>
+          <input type="text" id="review-name" class="form-input" placeholder="e.g. Rahul & Divya" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Event Type & City *</label>
+          <input type="text" id="review-sub" class="form-input" placeholder="e.g. Wedding in Guntur" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Rating *</label>
+          <select id="review-rating" class="form-select" required>
+            <option value="5">★★★★★ (5 Stars - Outstanding)</option>
+            <option value="4">★★★★☆ (4 Stars - Excellent)</option>
+            <option value="3">★★★☆☆ (3 Stars - Good)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Your Testimonial Review *</label>
+          <textarea id="review-quote" class="form-textarea" rows="4" placeholder="Describe your experience with Narasimharao garu and team..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; margin-top: 10px;" onclick="handleReviewSubmit(event)">Submit Review for Approval</button>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ==========================================================================
        ADMIN DASHBOARD PORTAL
        ========================================================================== -->
   <div id="admin-dashboard" class="admin-view">
@@ -661,6 +723,11 @@
           <li>
             <button class="admin-nav-btn" data-panel="pricing" onclick="switchAdminPanel('pricing', this)">
               <span>💰</span> Manage Packages & Add-Ons
+            </button>
+          </li>
+          <li>
+            <button class="admin-nav-btn" data-panel="reviews" onclick="switchAdminPanel('reviews', this)">
+              <span>⭐</span> Manage Reviews & Approvals
             </button>
           </li>
           <li>
@@ -825,30 +892,91 @@
             </div>
           </div>
 
-          <div class="table-card" style="padding:32px; max-width:600px;">
-            <form id="settings-form" onsubmit="handleSettingsSubmit(event); return false;">
-              <div class="form-group">
-                <label class="form-label">Studio Name</label>
-                <input type="text" class="form-input" value="Narasimha Stills" readonly />
-              </div>
-              <div class="form-group">
-                <label class="form-label">Owner / Chief Photographer</label>
-                <input type="text" class="form-input" value="Narasimharao" readonly />
-              </div>
-              <div class="form-group">
-                <label class="form-label">Contact Phone</label>
-                <input type="text" id="settings-phone" class="form-input" value="+91 8374571213" required />
-              </div>
-              <div class="form-group">
-                <label class="form-label">Email Address</label>
-                <input type="email" id="settings-email" class="form-input" value="lingamallutharunmanikanta@gmail.com" required />
-              </div>
-              <div class="form-group">
-                <label class="form-label">Studio Address</label>
-                <input type="text" id="settings-address" class="form-input" value="Sampath Nagar, Guntur, Andhra Pradesh 522004" required />
-              </div>
-              <button type="button" class="btn btn-primary" onclick="handleSettingsSubmit(event)">Save Settings Live to Website</button>
-            </form>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
+            <!-- Studio Contact Settings Card -->
+            <div class="table-card" style="padding:32px;">
+              <h4 style="color: var(--accent-gold-dark); font-size: 1.15rem; margin-bottom: 16px;">📍 Studio Contact Details</h4>
+              <form id="settings-form" onsubmit="handleSettingsSubmit(event); return false;">
+                <div class="form-group">
+                  <label class="form-label">Studio Name</label>
+                  <input type="text" class="form-input" value="Narasimha Stills" readonly />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Owner / Chief Photographer</label>
+                  <input type="text" class="form-input" value="Narasimharao" readonly />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Contact Phone</label>
+                  <input type="text" id="settings-phone" class="form-input" value="+91 8374571213" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Email Address</label>
+                  <input type="email" id="settings-email" class="form-input" value="lingamallutharunmanikanta@gmail.com" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Studio Address</label>
+                  <input type="text" id="settings-address" class="form-input" value="Sampath Nagar, Guntur, Andhra Pradesh 522004" required />
+                </div>
+                <button type="button" class="btn btn-primary" style="width: 100%;" onclick="handleSettingsSubmit(event)">Save Settings Live to Website</button>
+              </form>
+            </div>
+
+            <!-- Change Admin Security Credentials Card -->
+            <div class="table-card" style="padding:32px;">
+              <h4 style="color: var(--accent-gold-dark); font-size: 1.15rem; margin-bottom: 6px;">🔐 Change Admin Login Credentials</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">Change your admin username & password safely. Current password required.</p>
+              
+              <form id="admin-creds-form" onsubmit="handleAdminCredsSubmit(event); return false;">
+                <div class="form-group">
+                  <label class="form-label">Current Admin Password *</label>
+                  <input type="password" id="creds-current-pass" class="form-input" placeholder="Enter current admin password" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">New Admin Username *</label>
+                  <input type="text" id="creds-new-user" class="form-input" placeholder="Enter new username (e.g. admin)" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">New Admin Password *</label>
+                  <input type="password" id="creds-new-pass" class="form-input" placeholder="Enter new password (min 4 chars)" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Confirm New Password *</label>
+                  <input type="password" id="creds-confirm-pass" class="form-input" placeholder="Re-enter new password" required />
+                </div>
+                <button type="button" class="btn btn-primary" style="width: 100%;" onclick="handleAdminCredsSubmit(event)">🔒 Update Admin Credentials</button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <!-- PANEL 6: MANAGE REVIEWS -->
+        <section id="panel-reviews" class="admin-panel">
+          <div class="admin-header">
+            <div>
+              <h2 style="font-size: 1.8rem;">Manage Client Reviews</h2>
+              <p style="color: var(--text-muted); font-size: 0.9rem;">Review submitted testimonials and approve them for public display on the website.</p>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <div class="table-header-bar">
+              <h4>Submitted Client Testimonials</h4>
+            </div>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Client Name</th>
+                  <th>Event & City</th>
+                  <th>Rating</th>
+                  <th>Testimonial Review</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="admin-reviews-table-body">
+                <!-- Populated by app.js -->
+              </tbody>
+            </table>
           </div>
         </section>
 
@@ -913,6 +1041,6 @@
   </div>
 
   <!-- JavaScript Logic -->
-  <script src="app.js?v=22.0"></script>
+  <script src="app.js?v=24.0"></script>
 </body>
 </html>
