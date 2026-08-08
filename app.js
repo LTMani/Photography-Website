@@ -39,6 +39,8 @@ const defaultBookings = [
 ];
 
 const defaultSettings = {
+  name: 'Narasimha Stills',
+  owner: 'Narasimharao',
   phone: '+91 8374571213',
   email: 'lingamallutharunmanikanta@gmail.com',
   address: 'Sampath Nagar, Guntur, Andhra Pradesh 522004'
@@ -403,15 +405,23 @@ window.deletePortfolioItem = function(id) {
 
 window.handleSettingsSubmit = function(e) {
   if (e) e.preventDefault();
-  const phone = document.getElementById('settings-phone').value.trim();
-  const email = document.getElementById('settings-email').value.trim();
-  const address = document.getElementById('settings-address').value.trim();
+  const nameEl = document.getElementById('settings-name');
+  const ownerEl = document.getElementById('settings-owner');
+  const phoneEl = document.getElementById('settings-phone');
+  const emailEl = document.getElementById('settings-email');
+  const addressEl = document.getElementById('settings-address');
 
-  const newSettings = { phone, email, address };
+  const name = nameEl ? nameEl.value.trim() : 'Narasimha Stills';
+  const owner = ownerEl ? ownerEl.value.trim() : 'Narasimharao';
+  const phone = phoneEl ? phoneEl.value.trim() : '+91 8374571213';
+  const email = emailEl ? emailEl.value.trim() : 'lingamallutharunmanikanta@gmail.com';
+  const address = addressEl ? addressEl.value.trim() : 'Sampath Nagar, Guntur, AP';
+
+  const newSettings = { name, owner, phone, email, address };
   localStorage.setItem('ns_settings', JSON.stringify(newSettings));
   applyLiveSettings();
-  alert(`✓ Studio Contact Details saved live!\nPhone: ${phone}\nEmail: ${email}\nAddress: ${address}`);
-  showToast('Studio Settings updated live on website!');
+  alert(`✓ Studio Details Saved Live!\n\nStudio Name: ${name}\nOwner: ${owner}\nPhone: ${phone}\nEmail: ${email}\nAddress: ${address}`);
+  showToast('✓ Studio Details updated live on website!');
   return false;
 };
 
@@ -1133,12 +1143,17 @@ function renderAdminPortfolio() {
 
 function loadAdminSettings() {
   const s = getSettings();
+  const nameInput = document.getElementById('settings-name');
+  const ownerInput = document.getElementById('settings-owner');
   const phoneInput = document.getElementById('settings-phone');
   const emailInput = document.getElementById('settings-email');
   const addrInput = document.getElementById('settings-address');
-  if (phoneInput) phoneInput.value = s.phone;
-  if (emailInput) emailInput.value = s.email;
-  if (addrInput) addrInput.value = s.address;
+
+  if (nameInput) nameInput.value = s.name || 'Narasimha Stills';
+  if (ownerInput) ownerInput.value = s.owner || 'Narasimharao';
+  if (phoneInput) phoneInput.value = s.phone || '+91 8374571213';
+  if (emailInput) emailInput.value = s.email || 'lingamallutharunmanikanta@gmail.com';
+  if (addrInput) addrInput.value = s.address || 'Sampath Nagar, Guntur, Andhra Pradesh 522004';
 }
 
 function loadAdminPricing() {
