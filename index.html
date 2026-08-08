@@ -898,12 +898,12 @@
               <h4 style="color: var(--accent-gold-dark); font-size: 1.15rem; margin-bottom: 16px;">📍 Studio Contact Details</h4>
               <form id="settings-form" onsubmit="handleSettingsSubmit(event); return false;">
                 <div class="form-group">
-                  <label class="form-label">Studio Name</label>
-                  <input type="text" class="form-input" value="Narasimha Stills" readonly />
+                  <label class="form-label">Studio Name *</label>
+                  <input type="text" id="settings-name" class="form-input" value="Narasimha Stills" required />
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Owner / Chief Photographer</label>
-                  <input type="text" class="form-input" value="Narasimharao" readonly />
+                  <label class="form-label">Owner / Chief Photographer *</label>
+                  <input type="text" id="settings-owner" class="form-input" value="Narasimharao" required />
                 </div>
                 <div class="form-group">
                   <label class="form-label">Contact Phone</label>
