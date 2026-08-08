@@ -97,14 +97,52 @@ window.closeLoginModal = function(e) {
   return false;
 };
 
-window.handleLoginDirect = function(e) {
+window.openReviewModal = function(e) {
   if (e) e.preventDefault();
-  localStorage.setItem('ns_auth_token', 'authenticated_staff_session');
-  const modal = document.getElementById('login-modal');
+  const modal = document.getElementById('review-modal');
+  if (modal) modal.classList.add('active');
+};
+
+window.closeReviewModal = function(e) {
+  if (e) {
+    if (typeof e.preventDefault === 'function') e.preventDefault();
+    if (typeof e.stopPropagation === 'function') e.stopPropagation();
+  }
+  const modal = document.getElementById('review-modal');
   if (modal) modal.classList.remove('active');
-  showToast('Login successful! Welcome Narasimharao garu.');
-  checkAuthStatus();
-  window.switchToAdminView();
+  return false;
+};
+
+window.handleLoginDirect = function(e) {
+  if (e) {
+    if (typeof e.preventDefault === 'function') e.preventDefault();
+    if (typeof e.stopPropagation === 'function') e.stopPropagation();
+  }
+  const userInput = document.getElementById('login-user');
+  const passInput = document.getElementById('login-pass');
+
+  const typedUser = userInput ? userInput.value.trim() : '';
+  const typedPass = passInput ? passInput.value.trim() : '';
+
+  const creds = getAdminCreds();
+
+  if (typedUser === creds.user && typedPass === creds.pass) {
+    localStorage.setItem('ns_auth_token', 'authenticated_staff_session');
+    const modal = document.getElementById('login-modal');
+    if (modal) modal.classList.remove('active');
+
+    if (userInput) userInput.value = '';
+    if (passInput) passInput.value = '';
+
+    showToast('✓ Login successful! Welcome Narasimharao garu.');
+    alert('✓ Welcome Narasimharao garu! Login Successful.');
+    checkAuthStatus();
+    window.switchToAdminView();
+  } else {
+    showToast('❌ Invalid Username or Password!');
+    alert('❌ Invalid Credentials!\nPlease enter the correct Admin Username and Password.');
+  }
+  return false;
 };
 
 window.handleLogout = function() {
@@ -256,7 +294,15 @@ window.handleBookingSubmit = function(e) {
   renderAdminBookings();
   updateKPIs();
 
-  showToast(`Thank you ${name}! Your booking inquiry has been submitted.`);
+  // Launch pre-formatted WhatsApp message directly
+  const settings = getSettings();
+  const phoneClean = (settings.phone || '+918374571213').replace(/[^\d+]/g, '');
+  const waText = encodeURIComponent(`Hi Narasimha Stills! I want to book a photography session.\n\n👤 Name: ${name}\n📞 Phone: ${phone}\n✉️ Email: ${email || 'N/A'}\n📸 Service: ${service}\n📅 Event Date: ${date}\n📍 Notes/Location: ${notes || 'N/A'}`);
+  
+  const waUrl = `https://wa.me/${phoneClean}?text=${waText}`;
+  window.open(waUrl, '_blank');
+
+  showToast(`Thank you ${name}! Opening WhatsApp to chat direct with Narasimharao garu.`);
   const form = document.getElementById('booking-form');
   if (form) form.reset();
 };
@@ -362,6 +408,55 @@ window.handleSettingsSubmit = function(e) {
   applyLiveSettings();
   alert(`✓ Studio Contact Details saved live!\nPhone: ${phone}\nEmail: ${email}\nAddress: ${address}`);
   showToast('Studio Settings updated live on website!');
+  return false;
+};
+
+window.handleAdminCredsSubmit = function(e) {
+  if (e) {
+    if (typeof e.preventDefault === 'function') e.preventDefault();
+    if (typeof e.stopPropagation === 'function') e.stopPropagation();
+  }
+  const currentPassInput = document.getElementById('creds-current-pass');
+  const newUserInput = document.getElementById('creds-new-user');
+  const newPassInput = document.getElementById('creds-new-pass');
+  const confirmPassInput = document.getElementById('creds-confirm-pass');
+
+  const currentPass = currentPassInput ? currentPassInput.value.trim() : '';
+  const newUser = newUserInput ? newUserInput.value.trim() : '';
+  const newPass = newPassInput ? newPassInput.value.trim() : '';
+  const confirmPass = confirmPassInput ? confirmPassInput.value.trim() : '';
+
+  const creds = getAdminCreds();
+
+  if (currentPass !== creds.pass) {
+    alert('❌ Current Admin Password is incorrect! Cannot change credentials.');
+    showToast('❌ Incorrect current password!');
+    return false;
+  }
+
+  if (!newUser || newUser.length < 3) {
+    alert('❌ Username must be at least 3 characters long!');
+    return false;
+  }
+
+  if (!newPass || newPass.length < 4) {
+    alert('❌ New password must be at least 4 characters long!');
+    return false;
+  }
+
+  if (newPass !== confirmPass) {
+    alert('❌ New Password and Confirm Password do not match!');
+    return false;
+  }
+
+  const updatedCreds = { user: newUser, pass: newPass };
+  localStorage.setItem('ns_admin_creds', JSON.stringify(updatedCreds));
+
+  alert(`✓ Admin Credentials Changed Successfully!\n\nNew Username: ${newUser}\nNew Password: ${newPass}\n\nPlease use these new credentials for future logins!`);
+  showToast('✓ Admin credentials updated securely!');
+
+  const form = document.getElementById('admin-creds-form');
+  if (form) form.reset();
   return false;
 };
 
@@ -495,6 +590,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Storage Helpers
+const defaultAdminCreds = {
+  user: 'admin',
+  pass: 'narasimha2004'
+};
+
 function initStorage() {
   const existing = localStorage.getItem('ns_portfolio');
   if (!existing || existing.includes('p1') || existing.includes('Royal Traditional Telugu Wedding')) {
@@ -511,6 +611,23 @@ function initStorage() {
   }
   if (!localStorage.getItem('ns_addons')) {
     localStorage.setItem('ns_addons', JSON.stringify(defaultAddons));
+  }
+  if (!localStorage.getItem('ns_admin_creds')) {
+    localStorage.setItem('ns_admin_creds', JSON.stringify(defaultAdminCreds));
+  }
+}
+
+function getAdminCreds() {
+  try {
+    const data = localStorage.getItem('ns_admin_creds');
+    if (!data) return defaultAdminCreds;
+    const parsed = JSON.parse(data);
+    return {
+      user: parsed.user || 'admin',
+      pass: parsed.pass || 'narasimha2004'
+    };
+  } catch (e) {
+    return defaultAdminCreds;
   }
 }
 
@@ -661,6 +778,25 @@ function applyLiveSettings() {
 function renderPortfolio(category = 'all') {
   const container = document.getElementById('portfolio-grid');
   if (!container) return;
+
+  if (category === 'video') {
+    container.innerHTML = `
+      <div style="grid-column: 1/-1; text-align:center; padding: 40px 20px; background: #FFFFFF; border-radius: var(--radius-md); border: 1px solid var(--border-color); box-shadow: var(--shadow-card);">
+        <div style="font-size: 2.5rem; margin-bottom: 8px;">🎬</div>
+        <h3 style="font-size: 1.5rem; margin-bottom: 8px; color: var(--text-main);">Cinematic 4K Video Highlights</h3>
+        <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 520px; margin: 0 auto 24px auto;">
+          Experience our high-definition 4K aerial drone film teasers and luxury wedding highlights.
+        </p>
+        <div style="max-width: 800px; margin: 0 auto; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+          <video controls autoplay loop muted style="width: 100%; height: auto; max-height: 450px; display: block; background: #000;">
+            <source src="Camera.mp4" type="video/mp4" />
+            Your browser does not support playing video.
+          </video>
+        </div>
+      </div>
+    `;
+    return;
+  }
 
   const items = getPortfolio();
   const filtered = category === 'all' ? items : items.filter(item => item.category === category);
@@ -1140,3 +1276,243 @@ function startHeroCaptionLoop() {
 
   typeWord();
 }
+
+/* ==========================================================================
+   FEATURE ENHANCEMENTS: BROCHURE PDF, REVIEWS & WHATSAPP
+   ========================================================================== */
+
+const defaultReviews = [
+  {
+    id: 'rev-1',
+    name: 'Kiran & Swathi',
+    sub: 'Wedding in Guntur',
+    rating: 5,
+    quote: 'Narasimharao garu and his team captured our wedding with absolute magic! With 20+ years of experience, his directions made us so comfortable. The cinematic film still brings tears to our eyes!',
+    approved: true
+  },
+  {
+    id: 'rev-2',
+    name: 'Rama Krishna & Anusha',
+    sub: 'Destination Pre-Wedding & Reception',
+    rating: 5,
+    quote: 'Best photography studio in Andhra Pradesh! Professional, punctual, and exceptionally talented. The drone shots and candid emotions captured are breathtaking.',
+    approved: true
+  },
+  {
+    id: 'rev-3',
+    name: 'Nagarjuna & Sirisha',
+    sub: 'Family & Baby Shoot',
+    rating: 5,
+    quote: 'Extremely patient with our family and delivered wonderful portraits. Narasimha Stills is our family photographer for life!',
+    approved: true
+  }
+];
+
+function getReviews() {
+  try {
+    const data = localStorage.getItem('ns_reviews');
+    if (!data) return defaultReviews;
+    return JSON.parse(data) || defaultReviews;
+  } catch (e) {
+    return defaultReviews;
+  }
+}
+
+window.downloadStudioBrochure = function() {
+  const settings = getSettings();
+  const pricing = getPricing();
+  
+  const printWin = window.open('', '_blank', 'width=850,height=950');
+  if (!printWin) {
+    alert('Please allow popups to download/print the studio brochure PDF.');
+    return;
+  }
+  
+  printWin.document.write(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Narasimha Stills - Studio Packages & Rate Sheet</title>
+      <style>
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #FAF7F2; color: #0F172A; margin: 0; padding: 40px; }
+        .header { text-align: center; border-bottom: 2px solid #D4AF37; padding-bottom: 20px; margin-bottom: 30px; }
+        .header h1 { font-size: 28px; color: #0F172A; margin: 0; text-transform: uppercase; letter-spacing: 2px; }
+        .header p { color: #D4AF37; font-weight: bold; margin: 5px 0 0 0; text-transform: uppercase; font-size: 13px; }
+        .card { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .card h3 { color: #D4AF37; margin-top: 0; font-size: 20px; border-bottom: 1px solid #CBD5E1; padding-bottom: 8px; }
+        .price { font-size: 22px; font-weight: bold; color: #0F172A; margin-bottom: 12px; }
+        ul { padding-left: 20px; color: #475569; font-size: 14px; line-height: 1.6; }
+        .footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #E2E8F0; font-size: 13px; color: #64748B; }
+      </style>
+    </head>
+    <body>
+      <div class="header">
+        <h1>Narasimha Stills</h1>
+        <p>By Narasimharao • Est. 2004 • Guntur</p>
+      </div>
+
+      <div class="card">
+        <h3>1. Traditional Telugu Wedding Package</h3>
+        <div class="price">Base Rate: ₹${(pricing.pkgWedding || 250000).toLocaleString('en-IN')}</div>
+        <ul>
+          <li>Complete Coverage of Muhurtham, Pellikuthuru, & Reception</li>
+          <li>Lead Photographer Narasimharao + 4K Team</li>
+          <li>4K Drone Aerial Videography & Highlights Film</li>
+          <li>2 Signature Velvet Coffee Table Albums (300+ Edited Photos)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>2. Pre-Wedding Shoot Package</h3>
+        <div class="price">Base Rate: ₹${(pricing.pkgPrewedding || 30000).toLocaleString('en-IN')}</div>
+        <ul>
+          <li>Full Destination Outdoor Shoot Location</li>
+          <li>2 Professional Photographers & Cinematographers</li>
+          <li>4K Drone Aerial Coverage & Teaser Reel</li>
+          <li>50 Retouched Ultra HD Digital Photos</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>3. Baby Milestone & Portrait Package</h3>
+        <div class="price">Base Rate: ₹${(pricing.pkgBaby || 25000).toLocaleString('en-IN')}</div>
+        <ul>
+          <li>Studio / Outdoor Creative Theme Setup</li>
+          <li>Patient & Specialized Family Portraiture</li>
+          <li>30 High-Resolution Edited Digital Photos</li>
+          <li>1 Premium Mini Printed Keepsake Album</li>
+        </ul>
+      </div>
+
+      <div class="footer">
+        <p><strong>Studio Address:</strong> ${settings.address || 'Sampath Nagar, Guntur, AP'}</p>
+        <p><strong>Direct Booking Phone:</strong> ${settings.phone || '+91 8374571213'} | <strong>Email:</strong> ${settings.email || 'lingamallutharunmanikanta@gmail.com'}</p>
+      </div>
+      <script>
+        window.onload = function() { window.print(); };
+      </script>
+    </body>
+    </html>
+  `);
+  printWin.document.close();
+};
+
+window.handleReviewSubmit = function(e) {
+  if (e) {
+    if (typeof e.preventDefault === 'function') e.preventDefault();
+    if (typeof e.stopPropagation === 'function') e.stopPropagation();
+  }
+  const nameInput = document.getElementById('review-name');
+  const subInput = document.getElementById('review-sub');
+  const ratingInput = document.getElementById('review-rating');
+  const quoteInput = document.getElementById('review-quote');
+
+  const name = nameInput ? nameInput.value.trim() : '';
+  const sub = subInput ? subInput.value.trim() : '';
+  const rating = ratingInput ? parseInt(ratingInput.value) || 5 : 5;
+  const quote = quoteInput ? quoteInput.value.trim() : '';
+
+  if (!name || !sub || !quote) {
+    showToast('Please fill in your Name, Event Type, and Review!');
+    return false;
+  }
+
+  const newReview = {
+    id: 'rev-' + Date.now(),
+    name,
+    sub,
+    rating,
+    quote,
+    approved: false
+  };
+
+  const reviews = getReviews();
+  reviews.unshift(newReview);
+  localStorage.setItem('ns_reviews', JSON.stringify(reviews));
+
+  window.closeReviewModal();
+  alert('✓ Thank you for your review! It has been submitted for studio verification and will be published shortly.');
+  showToast('✓ Review submitted for studio approval!');
+
+  const form = document.getElementById('review-form');
+  if (form) form.reset();
+  return false;
+};
+
+window.approveReview = function(id) {
+  const reviews = getReviews();
+  const rev = reviews.find(r => r.id === id);
+  if (rev) {
+    rev.approved = true;
+    localStorage.setItem('ns_reviews', JSON.stringify(reviews));
+    renderAdminReviews();
+    renderPublicReviews();
+    showToast('✓ Review approved for public display!');
+  }
+};
+
+window.deleteReview = function(id) {
+  if (!confirm('Are you sure you want to delete this review?')) return;
+  let reviews = getReviews();
+  reviews = reviews.filter(r => r.id !== id);
+  localStorage.setItem('ns_reviews', JSON.stringify(reviews));
+  renderAdminReviews();
+  renderPublicReviews();
+  showToast('Review removed.');
+};
+
+function renderAdminReviews() {
+  const tableBody = document.getElementById('admin-reviews-table-body');
+  if (!tableBody) return;
+
+  const reviews = getReviews();
+  if (reviews.length === 0) {
+    tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 30px; color: var(--text-muted);">No client reviews submitted yet.</td></tr>`;
+    return;
+  }
+
+  tableBody.innerHTML = reviews.map(r => `
+    <tr>
+      <td><strong>${r.name}</strong></td>
+      <td>${r.sub}</td>
+      <td><span style="color: var(--accent-gold); font-weight: 700;">${'★'.repeat(r.rating || 5)}</span></td>
+      <td style="max-width: 280px; white-space: normal; font-size: 0.88rem;">"${r.quote}"</td>
+      <td>
+        <span class="badge ${r.approved ? 'badge-confirmed' : 'badge-pending'}">
+          ${r.approved ? 'Approved' : 'Pending Approval'}
+        </span>
+      </td>
+      <td>
+        <div style="display:flex; gap:6px;">
+          ${!r.approved ? `<button class="btn btn-sm btn-primary" onclick="approveReview('${r.id}')">✓ Approve</button>` : ''}
+          <button class="btn btn-sm btn-outline" style="border-color:var(--danger); color:var(--danger);" onclick="deleteReview('${r.id}')">🗑 Delete</button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function renderPublicReviews() {
+  const container = document.querySelector('#reviews .reviews-grid');
+  if (!container) return;
+
+  const reviews = getReviews().filter(r => r.approved);
+  if (reviews.length === 0) return;
+
+  container.innerHTML = reviews.map(r => `
+    <div class="review-card">
+      <div class="review-stars">${'★'.repeat(r.rating || 5)}</div>
+      <p class="review-quote">"${r.quote}"</p>
+      <div class="reviewer-name">${r.name}</div>
+      <div class="reviewer-sub">${r.sub}</div>
+    </div>
+  `).join('');
+}
+
+// Add review renders to refreshHomePageData
+const originalRefresh = refreshHomePageData;
+refreshHomePageData = function() {
+  if (typeof originalRefresh === 'function') originalRefresh();
+  renderPublicReviews();
+  renderAdminReviews();
+};
