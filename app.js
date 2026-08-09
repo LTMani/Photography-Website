@@ -7,12 +7,13 @@
 // Replace the keys below with your Google Firebase Console credentials
 // ==========================================================================
 const firebaseConfig = {
-  apiKey: "AIzaSyNarasimhaStillsFirebaseKey2026",
+  apiKey: "AIzaSyDfk4GocBmZOQXEH5EcOxtxNugCTgrqxss",
   authDomain: "narasimha-stills.firebaseapp.com",
-  projectId: "narasimha-stills-website",
-  storageBucket: "narasimha-stills.appspot.com",
-  messagingSenderId: "837457121300",
-  appId: "1:837457121300:web:narasimharao2026"
+  projectId: "narasimha-stills",
+  storageBucket: "narasimha-stills.firebasestorage.app",
+  messagingSenderId: "1059413090913",
+  appId: "1:1059413090913:web:4e6e825037314c55148020",
+  measurementId: "G-WZ7DCN1223"
 };
 
 let db = null;
@@ -23,10 +24,13 @@ function initFirebase() {
     if (typeof firebase !== 'undefined' && firebase.apps) {
       if (!firebase.apps.length) {
         firebase.initializeApp(firebaseConfig);
+        if (firebase.analytics && firebaseConfig.measurementId) {
+          firebase.analytics();
+        }
       }
       db = firebase.firestore();
       useFirebase = true;
-      console.log('🔥 Google Firebase Cloud Firestore connected successfully!');
+      console.log('🔥 Google Firebase Real-Time Cloud Firestore Connected Live!');
       setupFirebaseRealtimeListeners();
     }
   } catch (err) {
