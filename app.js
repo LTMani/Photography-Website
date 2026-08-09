@@ -2,7 +2,99 @@
    NARASIMHA STILLS - INTERACTIVE LOGIC & ADMIN DASHBOARD APP.JS
    ========================================================================== */
 
-// Initial State Data (Backed by localStorage if present)
+// ==========================================================================
+// GOOGLE FIREBASE CLOUD FIRESTORE CONFIGURATION
+// Replace the keys below with your Google Firebase Console credentials
+// ==========================================================================
+const firebaseConfig = {
+  apiKey: "AIzaSyNarasimhaStillsFirebaseKey2026",
+  authDomain: "narasimha-stills.firebaseapp.com",
+  projectId: "narasimha-stills-website",
+  storageBucket: "narasimha-stills.appspot.com",
+  messagingSenderId: "837457121300",
+  appId: "1:837457121300:web:narasimharao2026"
+};
+
+let db = null;
+let useFirebase = false;
+
+function initFirebase() {
+  try {
+    if (typeof firebase !== 'undefined' && firebase.apps) {
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+      }
+      db = firebase.firestore();
+      useFirebase = true;
+      console.log('🔥 Google Firebase Cloud Firestore connected successfully!');
+      setupFirebaseRealtimeListeners();
+    }
+  } catch (err) {
+    console.warn('Firebase initialization note: Using local storage cache.', err.message);
+    useFirebase = false;
+  }
+}
+
+function setupFirebaseRealtimeListeners() {
+  if (!useFirebase || !db) return;
+
+  // 1. Realtime Customer Bookings Sync
+  db.collection('bookings').onSnapshot((snapshot) => {
+    const firestoreBookings = [];
+    snapshot.forEach(doc => {
+      firestoreBookings.push(doc.data());
+    });
+    if (firestoreBookings.length > 0) {
+      localStorage.setItem('ns_bookings', JSON.stringify(firestoreBookings));
+      renderAdminBookings();
+      updateKPIs();
+    }
+  }, (err) => {
+    console.warn('Firestore Bookings note:', err.message);
+  });
+
+  // 2. Realtime Portfolio Gallery Sync
+  db.collection('portfolio').onSnapshot((snapshot) => {
+    const firestorePortfolio = [];
+    snapshot.forEach(doc => {
+      firestorePortfolio.push(doc.data());
+    });
+    if (firestorePortfolio.length > 0) {
+      localStorage.setItem('ns_portfolio', JSON.stringify(firestorePortfolio));
+      refreshHomePageData();
+      renderAdminPortfolio();
+      updateKPIs();
+    }
+  }, (err) => {
+    console.warn('Firestore Portfolio note:', err.message);
+  });
+
+  // 3. Realtime Studio Contact Settings Sync
+  db.collection('settings').doc('studio_config').onSnapshot((doc) => {
+    if (doc.exists) {
+      const data = doc.data();
+      localStorage.setItem('ns_settings', JSON.stringify(data));
+      applyLiveSettings();
+      loadAdminSettings();
+    }
+  }, (err) => {
+    console.warn('Firestore Settings note:', err.message);
+  });
+
+  // 4. Realtime Package Pricing Sync
+  db.collection('pricing').doc('studio_pricing').onSnapshot((doc) => {
+    if (doc.exists) {
+      const data = doc.data();
+      localStorage.setItem('ns_pricing', JSON.stringify(data));
+      applyLivePricing();
+      loadAdminPricing();
+    }
+  }, (err) => {
+    console.warn('Firestore Pricing note:', err.message);
+  });
+}
+
+// Initial State Data (Backed by localStorage and Firebase Cloud)
 const defaultPortfolio = [];
 
 const defaultBookings = [
@@ -284,6 +376,12 @@ window.handleBookingSubmit = function(e) {
   const currentBookings = getBookings();
   currentBookings.unshift(newBooking);
   localStorage.setItem('ns_bookings', JSON.stringify(currentBookings));
+
+  if (useFirebase && db) {
+    db.collection('bookings').doc(newBooking.id).set(newBooking).catch(err => {
+      console.warn('Firestore write note:', err.message);
+    });
+  }
 
   renderAdminBookings();
   updateKPIs();
@@ -633,6 +731,7 @@ function initOpeningSplashAnimation() {
 document.addEventListener('DOMContentLoaded', () => {
   initOpeningSplashAnimation();
   initStorage();
+  initFirebase();
   refreshHomePageData();
   renderAdminBookings();
   renderAdminPortfolio();
