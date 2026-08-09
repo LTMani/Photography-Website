@@ -1990,3 +1990,201 @@ footer .brand-text h2 {
     height: 32px;
   }
 }
+
+/* ==========================================================================
+   OPENING INTRO SPLASH & LOGIN MODAL ANIMATIONS
+   ========================================================================== */
+.opening-splash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle at center, #1E293B 0%, #0F172A 70%, #020617 100%);
+  z-index: 99999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.85s cubic-bezier(0.77, 0, 0.175, 1), visibility 0.85s cubic-bezier(0.77, 0, 0.175, 1);
+  animation: autoHideSplash 0.8s cubic-bezier(0.77, 0, 0.175, 1) 2.2s forwards;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+@keyframes autoHideSplash {
+  0% { opacity: 1; visibility: visible; }
+  99% { opacity: 0; visibility: hidden; }
+  100% { opacity: 0; visibility: hidden; pointer-events: none; display: none !important; }
+}
+
+.opening-splash.fade-out {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  display: none !important;
+}
+
+.splash-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.camera-lens-wrapper {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: splashLensGlow 3s ease-in-out infinite alternate;
+}
+
+.lens-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(212, 175, 55, 0.35);
+}
+
+.outer-ring {
+  width: 130px;
+  height: 130px;
+  border-top-color: var(--accent-gold);
+  border-bottom-color: var(--accent-gold);
+  animation: spinClockwise 5s linear infinite;
+}
+
+.inner-ring {
+  width: 96px;
+  height: 96px;
+  border-left-color: var(--accent-gold-light);
+  border-right-color: var(--accent-gold-light);
+  animation: spinCounterClockwise 3.5s linear infinite;
+}
+
+.aperture-icon {
+  width: 76px;
+  height: 76px;
+  z-index: 3;
+}
+
+.aperture-svg {
+  width: 100%;
+  height: 100%;
+  animation: apertureOpen 1.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.lens-flash {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.7) 0%, rgba(255, 215, 0, 0) 70%);
+  border-radius: 50%;
+  opacity: 0;
+  animation: cameraFlashTrigger 1.3s ease-out 0.9s forwards;
+  pointer-events: none;
+}
+
+.splash-brand {
+  opacity: 0;
+  transform: translateY(24px);
+  animation: splashTextReveal 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
+}
+
+.splash-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.3rem;
+  font-weight: 700;
+  letter-spacing: 7px;
+  background: linear-gradient(135deg, #FFFFFF 0%, var(--accent-gold-light) 55%, var(--accent-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.splash-divider {
+  width: 70px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+  margin: 14px auto;
+}
+
+.splash-subtitle {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.88rem;
+  letter-spacing: 4px;
+  color: #94A3B8;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.splash-est {
+  font-size: 0.78rem;
+  letter-spacing: 3px;
+  color: var(--accent-gold);
+  font-weight: 600;
+}
+
+@keyframes spinClockwise {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes spinCounterClockwise {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+@keyframes apertureOpen {
+  0% { transform: scale(0.5) rotate(-120deg); opacity: 0; }
+  65% { transform: scale(1.15) rotate(15deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes cameraFlashTrigger {
+  0% { opacity: 0; transform: scale(0.2); }
+  50% { opacity: 1; transform: scale(1.6); }
+  100% { opacity: 0; transform: scale(2.4); }
+}
+
+@keyframes splashTextReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes splashLensGlow {
+  0% { filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3)); }
+  100% { filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.8)); }
+}
+
+/* ENHANCED LUXURY ANIMATION FOR STAFF LOGIN MODAL */
+.modal-overlay.active .modal-box {
+  animation: loginModalEntrance 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes loginModalEntrance {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(40px) rotateX(12deg);
+    box-shadow: 0 0 0 rgba(212, 175, 55, 0);
+  }
+  70% {
+    transform: scale(1.02) translateY(-4px) rotateX(0deg);
+    box-shadow: 0 20px 50px rgba(212, 175, 55, 0.25);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotateX(0deg);
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35);
+  }
+}

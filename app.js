@@ -97,14 +97,46 @@ window.closeLoginModal = function(e) {
   return false;
 };
 
+// Cryptographic Helper: SHA-256 Hash
+async function sha256Hash(message) {
+  const msgBuffer = new TextEncoder().encode(message);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
 window.handleLoginDirect = function(e) {
-  if (e) e.preventDefault();
-  localStorage.setItem('ns_auth_token', 'authenticated_staff_session');
-  const modal = document.getElementById('login-modal');
-  if (modal) modal.classList.remove('active');
-  showToast('Login successful! Welcome Narasimharao garu.');
-  checkAuthStatus();
-  window.switchToAdminView();
+  if (e) {
+    if (typeof e.preventDefault === 'function') e.preventDefault();
+  }
+  const userInput = document.getElementById('login-user');
+  const passInput = document.getElementById('login-pass');
+  const user = userInput ? userInput.value.trim() : '';
+  const pass = passInput ? passInput.value.trim() : '';
+
+  if (!user || !pass) {
+    showToast('Please enter both staff username and password.');
+    return false;
+  }
+
+  const cleanUser = user.toLowerCase();
+  const isAuthorized = (cleanUser === 'admin' || cleanUser === 'narasimha' || cleanUser === 'staff') &&
+                       (pass === 'admin123' || pass === 'narasimha2026' || pass === 'admin' || pass === 'staff123');
+
+  if (isAuthorized) {
+    localStorage.setItem('ns_auth_token', 'authenticated_staff_session');
+    const modal = document.getElementById('login-modal');
+    if (modal) modal.classList.remove('active');
+    if (userInput) userInput.value = '';
+    if (passInput) passInput.value = '';
+    showToast('Login successful! Welcome Narasimharao garu.');
+    checkAuthStatus();
+    window.switchToAdminView();
+  } else {
+    showToast('Authentication failed: Invalid credentials.');
+    alert('Authentication Failed: Invalid staff username or password.\nDefault Staff Username: admin\nDefault Staff Password: admin123');
+  }
+  return false;
 };
 
 window.handleLogout = function() {
@@ -263,17 +295,125 @@ window.handleBookingSubmit = function(e) {
 
 window.handleCalculatorBooking = function() {
   const calcEvent = document.getElementById('calc-event');
+  const calcDays = document.getElementById('calc-days');
+  const calcTotal = document.getElementById('calc-total');
   let serviceName = 'Wedding Package';
 
   if (calcEvent && calcEvent.options[calcEvent.selectedIndex]) {
     const selectedOption = calcEvent.options[calcEvent.selectedIndex];
-    const eventName = selectedOption.getAttribute('data-name') || '';
+    const eventName = selectedOption.getAttribute('data-name') || selectedOption.innerText;
     if (eventName.includes('Pre-Wedding')) serviceName = 'Pre-Wedding Shoot';
     else if (eventName.includes('Baby')) serviceName = 'Baby Milestone Shoot';
     else if (eventName.includes('Bridal')) serviceName = 'Bridal Portrait Session';
+    else serviceName = 'Wedding Package';
+  }
+
+  const daysText = calcDays && calcDays.options[calcDays.selectedIndex] ? calcDays.options[calcDays.selectedIndex].innerText : '1 Day';
+  const totalVal = calcTotal ? calcTotal.innerText : '';
+
+  const notesInput = document.getElementById('book-notes');
+  if (notesInput) {
+    notesInput.value = `Smart AI Configurator Estimate: ${totalVal} (${serviceName}, ${daysText})`;
   }
 
   window.scrollToBooking(serviceName);
+  showToast(`Package estimate ${totalVal} transferred to booking form!`);
+};
+
+window.downloadBrochure = function() {
+  const settings = getSettings();
+  const printWindow = window.open('', '_blank');
+  if (!printWindow) {
+    showToast('Please allow popups to view & download the Studio Pricing Brochure.');
+    return;
+  }
+
+  printWindow.document.write(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Narasimha Stills - Official Studio Pricing Brochure</title>
+      <style>
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; padding: 40px; color: #1E293B; background: #FFF; line-height: 1.6; }
+        .header { text-align: center; border-bottom: 3px double #D4AF37; padding-bottom: 20px; margin-bottom: 30px; }
+        .logo { font-size: 28px; font-weight: bold; color: #0F172A; letter-spacing: 2px; }
+        .tagline { color: #D4AF37; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+        .section-title { font-size: 20px; color: #0F172A; border-bottom: 1px solid #E2E8F0; padding-bottom: 8px; margin-top: 30px; }
+        .pkg-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        .pkg-table th, .pkg-table td { border: 1px solid #E2E8F0; padding: 12px 16px; text-align: left; }
+        .pkg-table th { background: #F8FAFC; font-weight: bold; color: #0F172A; }
+        .price { color: #D4AF37; font-weight: bold; text-align: right; }
+        .footer { margin-top: 50px; text-align: center; font-size: 12px; color: #64748B; border-top: 1px solid #E2E8F0; padding-top: 20px; }
+        @media print {
+          body { padding: 0; }
+        }
+      </style>
+    </head>
+    <body>
+      <div class="header">
+        <div class="logo">NARASIMHA STILLS</div>
+        <div class="tagline">Luxury Wedding & Portrait Photography Studio • Est. 2004</div>
+        <p style="margin-top:8px; font-size:13px; color:#64748B;">Founder: Narasimharao • Location: Guntur, Andhra Pradesh</p>
+      </div>
+
+      <div class="section-title">Official Studio Packages & Investment Menu</div>
+      <table class="pkg-table">
+        <thead>
+          <tr>
+            <th>Package Name</th>
+            <th>Coverage & Deliverables</th>
+            <th style="text-align:right;">Investment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Essential Pre-Wedding Shoot</strong></td>
+            <td>Full day outdoor locations, 30 Fine-Art Retouched Prints, Drone Shots, HD Trailer</td>
+            <td class="price">₹30,000</td>
+          </tr>
+          <tr>
+            <td><strong>Royal Traditional Telugu Wedding</strong></td>
+            <td>Complete Muhurtham & Reception, 4K Drone Videography, 2 Velvet Albums, Live Stream</td>
+            <td class="price">₹2,50,000</td>
+          </tr>
+          <tr>
+            <td><strong>Baby Milestone Studio Session</strong></td>
+            <td>Theme setups, 20 Retouched Portraits, Digital High-Res Gallery</td>
+            <td class="price">₹25,000</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="section-title">Premium Add-On Services</div>
+      <table class="pkg-table">
+        <thead>
+          <tr>
+            <th>Add-On Description</th>
+            <th style="text-align:right;">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>4K Drone Aerial Videography</td><td class="price">+₹30,000</td></tr>
+          <tr><td>2 Signature Velvet Coffee Table Albums</td><td class="price">+₹25,000</td></tr>
+          <tr><td>4K Live YouTube / Webcast Streaming</td><td class="price">+₹20,000</td></tr>
+        </tbody>
+      </table>
+
+      <div class="footer">
+        <p><strong>Contact Studio to Reserve Dates:</strong> Phone: ${settings.phone} | Email: ${settings.email}</p>
+        <p>Address: ${settings.address}</p>
+        <p style="margin-top:10px; font-style:italic;">Thank you for considering Narasimha Stills to capture your timeless moments.</p>
+      </div>
+
+      <script>
+        window.onload = function() {
+          setTimeout(function() { window.print(); }, 500);
+        };
+      </script>
+    </body>
+    </html>
+  `);
+  printWindow.document.close();
 };
 
 window.calculateEstimate = function() {
@@ -472,8 +612,26 @@ window.updateBookingStatus = function(id, newStatus) {
   }
 };
 
+// Opening Website Splash Reveal Animation
+function initOpeningSplashAnimation() {
+  const splash = document.getElementById('opening-splash');
+  if (!splash) return;
+
+  const hideSplash = () => {
+    splash.classList.add('fade-out');
+    setTimeout(() => {
+      splash.style.display = 'none';
+      splash.style.pointerEvents = 'none';
+    }, 850);
+  };
+
+  setTimeout(hideSplash, 2000);
+  splash.addEventListener('click', hideSplash);
+}
+
 // App Initialization
 document.addEventListener('DOMContentLoaded', () => {
+  initOpeningSplashAnimation();
   initStorage();
   refreshHomePageData();
   renderAdminBookings();
@@ -680,14 +838,14 @@ function renderPortfolio(category = 'all') {
   }
 
   container.innerHTML = filtered.map(item => `
-    <div class="portfolio-card" data-category="${item.category}">
+    <div class="portfolio-card" data-category="${escapeHtml(item.category)}">
       <div class="portfolio-thumb-wrapper">
-        <img src="${item.image}" alt="${item.title}" class="portfolio-thumb" loading="lazy" />
+        <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.title)}" class="portfolio-thumb" loading="lazy" />
       </div>
       <div class="portfolio-info">
-        <span class="portfolio-category">${getCategoryLabel(item.category)}</span>
-        <h3>${item.title}</h3>
-        <p>${item.description}</p>
+        <span class="portfolio-category">${escapeHtml(getCategoryLabel(item.category))}</span>
+        <h3>${escapeHtml(item.title)}</h3>
+        <p>${escapeHtml(item.description)}</p>
       </div>
     </div>
   `).join('');
@@ -897,22 +1055,14 @@ function setupEventListeners() {
     });
   }
 
-  const mobileToggleBtn = document.getElementById('mobile-menu-toggle');
-  const navMenu = document.querySelector('.nav-menu');
-
-  if (mobileToggleBtn && navMenu) {
-    mobileToggleBtn.addEventListener('click', () => {
-      navMenu.classList.toggle('mobile-active');
-      mobileToggleBtn.innerText = navMenu.classList.contains('mobile-active') ? '✕' : '☰';
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      const navMenu = document.querySelector('.nav-menu');
+      const mobileToggleBtn = document.getElementById('mobile-menu-toggle');
+      if (navMenu) navMenu.classList.remove('mobile-active');
+      if (mobileToggleBtn) mobileToggleBtn.innerText = '☰';
     });
-
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        navMenu.classList.remove('mobile-active');
-        if (mobileToggleBtn) mobileToggleBtn.innerText = '☰';
-      });
-    });
-  }
+  });
 }
 
 function handleLogin(e) {
@@ -939,6 +1089,16 @@ function checkAuthStatus() {
   }
 }
 
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 function renderAdminBookings() {
   const tableBody = document.getElementById('admin-bookings-table');
   if (!tableBody) return;
@@ -947,17 +1107,17 @@ function renderAdminBookings() {
 
   tableBody.innerHTML = bookings.map(b => `
     <tr>
-      <td><strong>${b.id}</strong></td>
+      <td><strong>${escapeHtml(b.id)}</strong></td>
       <td>
-        <div><strong>${b.name}</strong></div>
-        <div style="font-size:0.8rem; color: var(--text-muted);">${b.email} | ${b.phone}</div>
+        <div><strong>${escapeHtml(b.name)}</strong></div>
+        <div style="font-size:0.8rem; color: var(--text-muted);">${escapeHtml(b.email)} | ${escapeHtml(b.phone)}</div>
       </td>
-      <td>${b.service}</td>
-      <td>${b.date}</td>
-      <td><span class="badge badge-${b.status}">${b.status}</span></td>
+      <td>${escapeHtml(b.service)}</td>
+      <td>${escapeHtml(b.date)}</td>
+      <td><span class="badge badge-${escapeHtml(b.status)}">${escapeHtml(b.status)}</span></td>
       <td>
-        ${b.status === 'pending' ? `<button class="btn btn-sm btn-primary" onclick="updateBookingStatus('${b.id}', 'confirmed')">Confirm</button>` : ''}
-        ${b.status === 'confirmed' ? `<button class="btn btn-sm btn-outline" onclick="updateBookingStatus('${b.id}', 'completed')">Complete</button>` : ''}
+        ${b.status === 'pending' ? `<button class="btn btn-sm btn-primary" onclick="updateBookingStatus('${escapeHtml(b.id)}', 'confirmed')">Confirm</button>` : ''}
+        ${b.status === 'confirmed' ? `<button class="btn btn-sm btn-outline" onclick="updateBookingStatus('${escapeHtml(b.id)}', 'completed')">Complete</button>` : ''}
       </td>
     </tr>
   `).join('');

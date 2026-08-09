@@ -17,6 +17,36 @@
 <body>
 
   <!-- ==========================================================================
+       OPENING WEBSITE INTRO SPLASH ANIMATION
+       ========================================================================== -->
+  <div id="opening-splash" class="opening-splash">
+    <div class="splash-content">
+      <div class="camera-lens-wrapper">
+        <div class="lens-ring outer-ring"></div>
+        <div class="lens-ring inner-ring"></div>
+        <div class="aperture-icon">
+          <svg viewBox="0 0 100 100" class="aperture-svg">
+            <circle cx="50" cy="50" r="44" fill="none" stroke="var(--accent-gold)" stroke-width="2.5" />
+            <polygon points="50,12 66,32 34,32" fill="var(--accent-gold)" class="blade blade-1" />
+            <polygon points="88,50 68,66 68,34" fill="var(--accent-gold)" class="blade blade-2" />
+            <polygon points="50,88 34,68 66,68" fill="var(--accent-gold)" class="blade blade-3" />
+            <polygon points="12,50 32,34 32,66" fill="var(--accent-gold)" class="blade blade-4" />
+            <circle cx="50" cy="50" r="14" fill="#0F172A" />
+            <circle cx="50" cy="50" r="7" fill="var(--accent-gold-light)" />
+          </svg>
+        </div>
+        <div class="lens-flash"></div>
+      </div>
+      <div class="splash-brand">
+        <h1 class="splash-title">NARASIMHA STILLS</h1>
+        <div class="splash-divider"></div>
+        <p class="splash-subtitle">LUXURY WEDDING & PORTRAIT STUDIO</p>
+        <span class="splash-est">EST. 2004 • GUNTUR</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
        PUBLIC WEBSITE CONTENT
        ========================================================================== -->
   <main id="public-website">
@@ -304,13 +334,13 @@
 
 
 
-    <!-- INTERACTIVE EVENT COST CALCULATOR (PREVIEW) -->
+    <!-- INTERACTIVE EVENT COST CALCULATOR -->
     <section id="calculator" class="calculator-section">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">Instant Quote</span>
-          <h2 class="section-title">Interactive Event Package Estimator</h2>
-          <p class="section-sub">Select your event requirements and customize add-ons to get a transparent price estimate.</p>
+          <span class="section-tag" style="background: rgba(212, 175, 55, 0.12); color: var(--accent-gold-dark); border: 1px solid rgba(212, 175, 55, 0.3);">🤖 SMART AI ENGINE</span>
+          <h2 class="section-title" style="font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 700; margin-top: 8px;">Smart AI Wedding Package Configurator</h2>
+          <p class="section-sub" style="max-width: 680px; margin: 12px auto 0 auto; color: var(--text-muted);">Select your event requirements, multi-day coverage, and custom add-ons to get a real-time smart package estimate.</p>
         </div>
 
         <div class="calc-card">
@@ -338,21 +368,23 @@
               <div class="form-group">
                 <label class="form-label">Select Premium Add-Ons</label>
                 <div class="calc-checkbox-group">
-                  <label class="calc-checkbox"><input type="checkbox" class="calc-addon" value="30000" checked /> 4K Drone Aerial Videography (+₹30,000)</label>
+                  <label class="calc-checkbox"><input type="checkbox" class="calc-addon" value="30000" /> 4K Drone Aerial Videography (+₹30,000)</label>
                   <label class="calc-checkbox"><input type="checkbox" class="calc-addon" value="25000" checked /> 2 Signature Velvet Coffee Table Albums (+₹25,000)</label>
-                  <label class="calc-checkbox"><input type="checkbox" class="calc-addon" value="20000" /> 4K Live YouTube / Webcast Streaming (+₹20,000)</label>
+                  <label class="calc-checkbox"><input type="checkbox" class="calc-addon" value="20000" checked /> 4K Live YouTube / Webcast Streaming (+₹20,000)</label>
                 </div>
               </div>
             </div>
 
             <div class="calc-summary-box">
-              <h3 style="font-size: 1.3rem; margin-bottom: 20px; color: var(--accent-gold-dark);">Custom Package Estimate</h3>
+              <h3 style="font-size: 1.3rem; margin-bottom: 20px; color: var(--accent-gold-dark); font-family: 'Playfair Display', serif;">Custom Package Estimate</h3>
               <div class="calc-line"><span>Base Event Coverage:</span> <strong id="calc-event-price">₹1,80,000</strong></div>
-              <div class="calc-line"><span>Selected Add-Ons:</span> <strong id="calc-addons-price">₹55,000</strong></div>
+              <div class="calc-line"><span>Selected Add-Ons:</span> <strong id="calc-addons-price">₹45,000</strong></div>
               <div class="calc-divider"></div>
               <div class="calc-total-label">ESTIMATED TOTAL</div>
-              <div class="calc-total-price" id="calc-total">₹2,35,000</div>
+              <div class="calc-total-price" id="calc-total">₹2,25,000</div>
+              
               <button id="calc-book-btn" class="btn btn-primary" style="width:100%; margin-top:20px;" onclick="handleCalculatorBooking()">Book This Package Estimate →</button>
+              <button id="download-brochure-btn" class="btn btn-outline" style="width:100%; margin-top:12px; font-size: 0.88rem; padding: 12px 16px; border-color: var(--accent-gold-dark); color: var(--accent-gold-dark);" onclick="downloadBrochure()">📄 Download Studio Pricing Brochure (PDF/Print) ↓</button>
             </div>
           </div>
         </div>
