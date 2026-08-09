@@ -12,12 +12,55 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="styles.css?v=22.0" />
+  <link rel="stylesheet" href="styles.css?v=99999.0" />
 
   <!-- Firebase SDK (App, Firestore & Analytics) -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics-compat.js"></script>
+  <!-- Schema.org LocalBusiness & Photographer SEO Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Photographer",
+    "name": "Narasimha Stills Photography",
+    "image": "https://www.narasimhastills.com/hero-bg.jpg",
+    "@id": "https://www.narasimhastills.com",
+    "url": "https://www.narasimhastills.com",
+    "telephone": "+918374571213",
+    "priceRange": "₹₹₹",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Narasimha Stills Studio, Main Road",
+      "addressLocality": "Guntur",
+      "addressRegion": "Andhra Pradesh",
+      "postalCode": "522002",
+      "addressCountry": "IN"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 16.3067,
+      "longitude": 80.4365
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+      ],
+      "opens": "09:00",
+      "closes": "21:00"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "128"
+    },
+    "sameAs": [
+      "https://instagram.com/narasimhastills",
+      "https://facebook.com/narasimhastills",
+      "https://youtube.com/narasimhastills"
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -138,24 +181,36 @@
       </div>
     </section>
 
-    <!-- STATS BAR -->
-    <section class="stats-bar">
-      <div class="container stats-grid">
-        <div class="stat-item">
-          <h3 class="text-gold">20+</h3>
-          <p>Years Mastery</p>
-        </div>
-        <div class="stat-item">
-          <h3 class="text-gold">1,200+</h3>
-          <p>Weddings Captured</p>
-        </div>
-        <div class="stat-item">
-          <h3 class="text-gold">100%</h3>
-          <p>Client Delight</p>
-        </div>
-        <div class="stat-item">
-          <h3 class="text-gold">50k+</h3>
-          <p>Moments Preserved</p>
+    <!-- ==========================================================================
+         MILESTONE STATS COUNTER BAR
+         ========================================================================== -->
+    <section class="stats-counter-section">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">🏆</div>
+            <div class="stat-number-wrapper"><span class="stat-number" data-target="20">0</span><span class="stat-plus">+</span></div>
+            <div class="stat-label">Years Mastery</div>
+            <p class="stat-sub">Professional Excellence</p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">💒</div>
+            <div class="stat-number-wrapper"><span class="stat-number" data-target="500">0</span><span class="stat-plus">+</span></div>
+            <div class="stat-label">Weddings Captured</div>
+            <p class="stat-sub">Telugu & Destination</p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📸</div>
+            <div class="stat-number-wrapper"><span class="stat-number" data-target="50">0</span><span class="stat-k">k+</span></div>
+            <div class="stat-label">HD Photos Delivered</div>
+            <p class="stat-sub">Retouched 4K Archives</p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">⭐</div>
+            <div class="stat-number-wrapper"><span class="stat-number" data-target="100">0</span><span class="stat-plus">%</span></div>
+            <div class="stat-label">Happy Couples</div>
+            <p class="stat-sub">5-Star Client Satisfaction</p>
+          </div>
         </div>
       </div>
     </section>
@@ -404,35 +459,95 @@
           <h2 class="section-title">Frequently Asked Questions</h2>
         </div>
 
-        <div class="faq-list">
-          <div class="faq-item">
-            <button class="faq-question">How far in advance should we book Narasimharao for our wedding? <span class="faq-icon">+</span></button>
+    <!-- ==========================================================================
+         CLIENT PRIVATE ALBUM ACCESS PORTAL
+         ========================================================================== -->
+    <section id="private-album" class="private-album-section">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-subtitle">EXCLUSIVELY FOR OUR COUPLES</span>
+          <h2 class="section-title">Client Private Album Portal 🔒</h2>
+          <p class="section-description">
+            Enter your private booking passcode (e.g. <code>KIRAN2026</code>, <code>SWATHI2026</code>, or <code>NS-VIP</code>) to unlock & download your 4K uncompressed wedding photo album.
+          </p>
+        </div>
+        <div class="album-portal-box">
+          <form id="private-album-form" onsubmit="handlePrivateAlbumUnlock(event)">
+            <div class="portal-input-group">
+              <span class="portal-key-icon">🔑</span>
+              <input type="text" id="album-passcode-input" placeholder="Enter Your Album Passcode (e.g. KIRAN2026)" required />
+              <button type="submit" class="btn btn-primary portal-submit-btn">Unlock Album ✨</button>
+            </div>
+            <div id="album-portal-status" class="portal-status-msg"></div>
+          </form>
+          <div class="portal-demo-hint">
+            <span>💡 Demo Passcodes to Test: <code>KIRAN2026</code> | <code>SWATHI2026</code> | <code>NS-VIP</code></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         FREQUENTLY ASKED QUESTIONS (FAQ) ACCORDION
+         ========================================================================== -->
+    <section id="faqs" class="faq-section">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-subtitle">HELPFUL INFORMATION</span>
+          <h2 class="section-title">Frequently Asked Questions 📖</h2>
+          <p class="section-description">
+            Everything you need to know about booking Narasimha Stills for your special wedding celebration.
+          </p>
+        </div>
+        <div class="faq-accordion">
+          <div class="faq-item active">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>How far in advance should we book Narasimha Stills?</span>
+              <span class="faq-icon">+</span>
+            </button>
             <div class="faq-answer">
-              <p>Couples typically reserve wedding dates 3 to 6 months in advance due to peak wedding seasons in Guntur & Andhra Pradesh. Contact us anytime to confirm availability!</p>
+              <p>We recommend booking 3 to 6 months in advance for prime wedding dates in Andhra Pradesh & Telangana, as peak muhurtham dates get reserved quickly. However, we accept last-minute inquiries subject to schedule availability.</p>
             </div>
           </div>
-
           <div class="faq-item">
-            <button class="faq-question">Do you travel for destination pre-wedding shoots outside Guntur? <span class="faq-icon">+</span></button>
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Do you travel for destination weddings across India & Abroad?</span>
+              <span class="faq-icon">+</span>
+            </button>
             <div class="faq-answer">
-              <p>Yes! We travel across India and international destinations for beach pre-wedding shoots, heritage palace films, and luxury wedding ceremonies.</p>
+              <p>Yes, absolutely! Narasimha Stills captures destination weddings across India (Goa, Udaipur, Kerala, Bangalore, Hyderabad, Vizag) and abroad. Travel and lodging arrangements are customized in your package proposal.</p>
             </div>
           </div>
-
           <div class="faq-item">
-            <button class="faq-question">How long does photo editing and 4K film delivery take? <span class="faq-icon">+</span></button>
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>What cinema camera gear and lighting setup do you use?</span>
+              <span class="faq-icon">+</span>
+            </button>
             <div class="faq-answer">
-              <p>High-resolution edited digital photographs are delivered within 10 to 14 days. Custom printed Velvet Coffee Table Albums and 4K Cinematic Films are delivered within 3 to 4 weeks.</p>
+              <p>We shoot on flagship 4K Full-Frame Cinema Cameras (Sony FX6/A7SIII series), G-Master Prime Lenses, 4K HDR Drones for aerial coverage, motorized gimbals, and studio Godox wireless lighting for magazine-grade color perfection.</p>
             </div>
           </div>
-
           <div class="faq-item">
-            <button class="faq-question">What camera gear and drone equipment do you use? <span class="faq-icon">+</span></button>
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>What is the delivery timeline for signature coffee table albums?</span>
+              <span class="faq-icon">+</span>
+            </button>
             <div class="faq-answer">
-              <p>We shoot exclusively with Sony FX3 / RED digital cinema cameras, G-Master lenses, multi-axis gimbals, and 4K Hasselblad aerial drones.</p>
+              <p>Sneak peek highlights & teaser photos are delivered within 48 hours! The full retouched 4K digital gallery is delivered within 2-3 weeks, and custom velvet-finish Signature Coffee Table Albums are delivered in 3-4 weeks.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Do we get full uncompressed high-resolution digital files?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Yes! Every booking includes unlimited high-resolution retouched digital images delivered via our Private Client Portal & 5GB+ Cloud Drive storage links without any watermark restrictions.</p>
             </div>
           </div>
         </div>
+      </div>
+    </section>
       </div>
     </section>
 
@@ -950,6 +1065,6 @@
   </div>
 
   <!-- JavaScript Logic -->
-  <script src="app.js?v=22.0"></script>
+  <script src="app.js?v=99999.0"></script>
 </body>
 </html>

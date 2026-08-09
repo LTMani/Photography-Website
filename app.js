@@ -745,6 +745,7 @@ document.addEventListener('DOMContentLoaded', () => {
   checkAuthStatus();
   setupEventListeners();
   startHeroCaptionLoop();
+  safeRun('initStatsCounterAnimation', initStatsCounterAnimation);
   
   // Real-time synchronization across browser windows/tabs
   window.addEventListener('storage', () => {
@@ -1402,4 +1403,82 @@ function startHeroCaptionLoop() {
   }, 5000);
 
   typeWord();
+}
+
+// ==========================================================================
+// FEATURE LOGIC: FAQ ACCORDION, PRIVATE ALBUM PORTAL & STATS COUNTER
+// ==========================================================================
+
+window.toggleFaq = function(buttonElem) {
+  const faqItem = buttonElem.closest('.faq-item');
+  if (!faqItem) return;
+  const isAlreadyActive = faqItem.classList.contains('active');
+  document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
+  if (!isAlreadyActive) {
+    faqItem.classList.add('active');
+  }
+};
+
+window.handlePrivateAlbumUnlock = function(e) {
+  if (e && e.preventDefault) e.preventDefault();
+  const inputElem = document.getElementById('album-passcode-input');
+  const statusElem = document.getElementById('album-portal-status');
+  if (!inputElem || !statusElem) return;
+
+  const rawCode = inputElem.value.trim().toUpperCase();
+  if (!rawCode) return;
+
+  const validPasscodes = ['KIRAN2026', 'SWATHI2026', 'NS-VIP', 'NARASIMHA2026', 'VIP2026'];
+
+  if (validPasscodes.includes(rawCode) || rawCode.startsWith('NS-')) {
+    statusElem.className = 'portal-status-msg success';
+    statusElem.innerHTML = `🎉 Access Granted! Opening Uncompressed 4K Album Drive... <br /><a href="https://drive.google.com" target="_blank" class="btn btn-sm btn-primary" style="margin-top: 10px;">☁ Open 4K Photo Drive</a>`;
+    showToast('🔑 Private Album Unlocked Successfully!');
+    setTimeout(() => {
+      window.open('https://drive.google.com', '_blank');
+    }, 1200);
+  } else {
+    statusElem.className = 'portal-status-msg error';
+    statusElem.innerHTML = `❌ Invalid Passcode. Please check your booking receipt or try demo codes: <code>KIRAN2026</code> or <code>SWATHI2026</code>`;
+    showToast('❌ Invalid Album Passcode');
+  }
+};
+
+function initStatsCounterAnimation() {
+  const statNumbers = document.querySelectorAll('.stat-number');
+  if (!statNumbers.length) return;
+
+  let animated = false;
+
+  function runCounter() {
+    statNumbers.forEach(numElem => {
+      const target = parseInt(numElem.getAttribute('data-target') || '0', 10);
+      let count = 0;
+      const duration = 2000;
+      const stepTime = Math.max(10, Math.floor(duration / Math.max(1, target)));
+
+      const timer = setInterval(() => {
+        count += 1;
+        numElem.innerText = count;
+        if (count >= target) {
+          numElem.innerText = target;
+          clearInterval(timer);
+        }
+      }, stepTime);
+    });
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !animated) {
+        animated = true;
+        runCounter();
+      }
+    });
+  }, { threshold: 0.3 });
+
+  const counterSection = document.querySelector('.stats-counter-section');
+  if (counterSection) {
+    observer.observe(counterSection);
+  }
 }
