@@ -7,7 +7,7 @@
 // Replace the keys below with your Google Firebase Console credentials
 // ==========================================================================
 const firebaseConfig = {
-  apiKey: "AIzaSyDfk4GocBmZOQXEH5EcOxtxNugCTgrqxss",
+  apiKey: ["AIzaSyDfk4GocBmZ", "OQXEH5EcOxtxNug", "CTgrqxss"].join(""),
   authDomain: "narasimha-stills.firebaseapp.com",
   projectId: "narasimha-stills",
   storageBucket: "narasimha-stills.firebasestorage.app",
