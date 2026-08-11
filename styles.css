@@ -2210,13 +2210,14 @@ footer .brand-text h2 {
 }
 
 .stat-card {
-  background: var(--bg-card);
+  background: rgba(30, 41, 59, 0.85);
   border: 1px solid var(--border-color);
   border-radius: 20px;
   padding: 30px 20px;
   text-align: center;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease, box-shadow 0.3s ease;
   backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
 }
 
 .stat-card:hover {
