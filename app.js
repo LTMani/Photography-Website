@@ -746,6 +746,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupEventListeners();
   startHeroCaptionLoop();
   safeRun('initStatsCounterAnimation', initStatsCounterAnimation);
+  safeRun('applyLanguageTranslations', applyLanguageTranslations);
   
   // Real-time synchronization across browser windows/tabs
   window.addEventListener('storage', () => {
@@ -1481,4 +1482,90 @@ function initStatsCounterAnimation() {
   if (counterSection) {
     observer.observe(counterSection);
   }
+}
+
+// ==========================================================================
+// MULTI-LANGUAGE TRANSLATION ENGINE (ENGLISH / TELUGU)
+// ==========================================================================
+
+const i18nTranslations = {
+  en: {
+    nav_home: "Home",
+    nav_founder: "Founder",
+    nav_about: "About",
+    nav_portfolio: "Portfolio",
+    nav_packages: "Packages",
+    nav_calculator: "Calculator",
+    nav_private_album: "Private Album 🔒",
+    nav_faqs: "FAQs 📖",
+    nav_reviews: "Reviews",
+    nav_contact: "Contact",
+    nav_staff_login: "Staff Login",
+    nav_book_session: "Book Session",
+    
+    hero_badge: "★ Guntur's Premier Photography Studio",
+    hero_season: "Booking Open for 2026 Season",
+    hero_desc: "With over 20+ years of mastery under the lens of Narasimharao, we turn your weddings, milestones, and portraits into cinematic pieces of art.",
+    hero_btn_reserve: "Reserve Event Date",
+    hero_btn_explore: "Explore Gallery",
+
+    stat_mastery: "Years Mastery",
+    stat_weddings: "Weddings Captured",
+    stat_photos: "HD Photos Delivered",
+    stat_couples: "Happy Couples"
+  },
+  te: {
+    nav_home: "హోమ్",
+    nav_founder: "సంస్థాపకుడు",
+    nav_about: "మా గురించి",
+    nav_portfolio: "ఫోటోలు",
+    nav_packages: "ప్యాకేజీలు",
+    nav_calculator: "ఖర్చు లెక్క",
+    nav_private_album: "ప్రైవేట్ ఆల్బమ్ 🔒",
+    nav_faqs: "ప్రశ్నలు-జవాబులు 📖",
+    nav_reviews: "రివ్యూలు",
+    nav_contact: "సంప్రదించండి",
+    nav_staff_login: "స్టాఫ్ లాగిన్",
+    nav_book_session: "బుక్ చేసుకోండి",
+
+    hero_badge: "★ గుంటూరు నెం.1 లగ్జరీ ఫోటోగ్రఫీ స్టూడియో",
+    hero_season: "2026 బుకింగ్స్ ప్రారంభమైనవి",
+    hero_desc: "నరసింహారావు గారి 20+ సంవత్సరాల అనుభవంతో మీ వివాహ వేడుకలను, మధుర జ్ఞాపకాలను అద్భుతమైన సినిమాటిక్ కళాఖండాలుగా మారుస్తాము.",
+    hero_btn_reserve: "తేదీ రిజర్వ్ చేసుకోండి",
+    hero_btn_explore: "గ్యాలరీ చూడండి",
+
+    stat_mastery: "సంవత్సరాల అనుభవం",
+    stat_weddings: "వివాహాలు పూర్తి",
+    stat_photos: "HD ఫోటోలు డెలివరీ",
+    stat_couples: "సంతృప్త జంటలు"
+  }
+};
+
+let currentLang = localStorage.getItem('ns_lang') || 'en';
+
+window.toggleLanguage = function() {
+  currentLang = currentLang === 'en' ? 'te' : 'en';
+  localStorage.setItem('ns_lang', currentLang);
+  applyLanguageTranslations();
+  showToast(currentLang === 'te' ? '🌐 తెలుగు భాషకు మార్చబడింది' : '🌐 Switched to English');
+};
+
+function applyLanguageTranslations() {
+  const langData = i18nTranslations[currentLang] || i18nTranslations.en;
+  
+  const langBtn = document.getElementById('lang-toggle-btn');
+  if (langBtn) {
+    langBtn.innerText = currentLang === 'te' ? '🌐 తెలుగు' : '🌐 English';
+  }
+  const mobileLangText = document.getElementById('mobile-lang-text');
+  if (mobileLangText) {
+    mobileLangText.innerText = currentLang === 'te' ? 'తెలుగు' : 'English | తెలుగు';
+  }
+
+  document.querySelectorAll('[data-i18n]').forEach(elem => {
+    const key = elem.getAttribute('data-i18n');
+    if (langData[key]) {
+      elem.innerText = langData[key];
+    }
+  });
 }

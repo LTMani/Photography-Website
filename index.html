@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="styles.css?v=1000000.0" />
+  <link rel="stylesheet" href="styles.css?v=2000000.0" />
 
   <!-- Firebase SDK (App, Firestore & Analytics) -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
@@ -121,23 +121,27 @@
             </div>
             <button class="mobile-close-btn" onclick="toggleMobileMenu(event)" aria-label="Close Menu">✕ Close</button>
           </li>
-          <li><a href="#home" class="nav-link active" onclick="scrollToSection('home')">Home</a></li>
-          <li><a href="#founder" class="nav-link" onclick="scrollToSection('founder')">Founder</a></li>
-          <li><a href="#about" class="nav-link" onclick="scrollToSection('about')">About</a></li>
-          <li><a href="#portfolio" class="nav-link" onclick="scrollToSection('portfolio')">Portfolio</a></li>
-          <li><a href="#packages" class="nav-link" onclick="scrollToSection('packages')">Packages</a></li>
-          <li><a href="#calculator" class="nav-link" onclick="scrollToSection('calculator')">Calculator</a></li>
-          <li><a href="#reviews" class="nav-link" onclick="scrollToSection('reviews')">Reviews</a></li>
-          <li><a href="#contact" class="nav-link" onclick="scrollToSection('contact')">Contact</a></li>
+          <li><a href="#home" class="nav-link active" onclick="scrollToSection('home')" data-i18n="nav_home">Home</a></li>
+          <li><a href="#founder" class="nav-link" onclick="scrollToSection('founder')" data-i18n="nav_founder">Founder</a></li>
+          <li><a href="#about" class="nav-link" onclick="scrollToSection('about')" data-i18n="nav_about">About</a></li>
+          <li><a href="#portfolio" class="nav-link" onclick="scrollToSection('portfolio')" data-i18n="nav_portfolio">Portfolio</a></li>
+          <li><a href="#packages" class="nav-link" onclick="scrollToSection('packages')" data-i18n="nav_packages">Packages</a></li>
+          <li><a href="#calculator" class="nav-link" onclick="scrollToSection('calculator')" data-i18n="nav_calculator">Calculator</a></li>
+          <li><a href="#private-album" class="nav-link" onclick="scrollToSection('private-album')" data-i18n="nav_private_album">Private Album 🔒</a></li>
+          <li><a href="#faqs" class="nav-link" onclick="scrollToSection('faqs')" data-i18n="nav_faqs">FAQs 📖</a></li>
+          <li><a href="#reviews" class="nav-link" onclick="scrollToSection('reviews')" data-i18n="nav_reviews">Reviews</a></li>
+          <li><a href="#contact" class="nav-link" onclick="scrollToSection('contact')" data-i18n="nav_contact">Contact</a></li>
           <li class="mobile-cta-wrapper">
-            <a href="#contact" class="btn btn-primary" onclick="scrollToBooking(); toggleMobileMenu();" style="width: 100%;">Book Session</a>
-            <button class="btn btn-outline" onclick="openLoginModal(event); toggleMobileMenu();" style="width: 100%; color: var(--accent-gold-dark);">⚙ Staff Login</button>
+            <button class="btn btn-outline lang-toggle-btn-mobile" onclick="toggleLanguage();" style="width: 100%; color: var(--accent-gold); border-color: var(--accent-gold); margin-bottom: 8px;">🌐 Language: <span id="mobile-lang-text">English | తెలుగు</span></button>
+            <a href="#contact" class="btn btn-primary" onclick="scrollToBooking(); toggleMobileMenu();" style="width: 100%;" data-i18n="nav_book_session">Book Session</a>
+            <button class="btn btn-outline" onclick="openLoginModal(event); toggleMobileMenu();" style="width: 100%; color: var(--accent-gold-dark);" data-i18n="nav_staff_login">⚙ Staff Login</button>
           </li>
         </ul>
 
         <div class="nav-actions">
-          <button id="open-login-btn" class="btn btn-outline nav-staff-btn" onclick="openLoginModal(event)">Staff Login</button>
-          <a href="#contact" class="btn btn-primary nav-book-btn" onclick="scrollToBooking()">Book Session</a>
+          <button id="lang-toggle-btn" class="btn btn-outline lang-toggle-btn" onclick="toggleLanguage()" title="Switch Language (English / తెలుగు)" style="border-color: var(--accent-gold); color: var(--accent-gold); padding: 8px 14px; font-size: 0.85rem; border-radius: 50px;">🌐 English</button>
+          <button id="open-login-btn" class="btn btn-outline nav-staff-btn" onclick="openLoginModal(event)" data-i18n="nav_staff_login">Staff Login</button>
+          <a href="#contact" class="btn btn-primary nav-book-btn" onclick="scrollToBooking()" data-i18n="nav_book_session">Book Session</a>
           <button id="mobile-menu-toggle" class="mobile-toggle-btn" aria-label="Toggle Navigation Menu" onclick="toggleMobileMenu(event)">☰</button>
         </div>
       </div>
@@ -152,10 +156,10 @@
       <div class="container hero-grid">
         <div class="hero-content">
           <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 24px;">
-            <div class="hero-badge" style="margin-bottom: 0;">
-              <span>★</span> Guntur's Premier Photography Studio
+            <div class="hero-badge" style="margin-bottom: 0;" data-i18n="hero_badge">
+              ★ Guntur's Premier Photography Studio
             </div>
-            <div class="hero-badge" style="background: rgba(16, 185, 129, 0.18); border-color: rgba(16, 185, 129, 0.65); color: #34D399; margin-bottom: 0;">
+            <div class="hero-badge" style="background: rgba(16, 185, 129, 0.18); border-color: rgba(16, 185, 129, 0.65); color: #34D399; margin-bottom: 0;" data-i18n="hero_season">
               <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#10B981; margin-right:4px; box-shadow:0 0 10px #10B981;"></span> Booking Open for 2026 Season
             </div>
           </div>
@@ -164,12 +168,12 @@
             <span class="hero-quote-mark">“</span>
             <span id="hero-typing-quote" class="hero-quote-text">Every wedding is a love story; we make your moments live forever.</span>
           </div>
-          <p class="hero-description">
+          <p class="hero-description" data-i18n="hero_desc">
             With over 20+ years of mastery under the lens of Narasimharao, we turn your weddings, milestones, and portraits into cinematic pieces of art.
           </p>
           <div class="hero-cta">
-            <a href="#contact" class="btn btn-primary" onclick="scrollToBooking('Wedding Package')">Reserve Event Date</a>
-            <a href="#portfolio" class="btn btn-outline" onclick="scrollToSection('portfolio')">Explore Gallery</a>
+            <a href="#contact" class="btn btn-primary" onclick="scrollToBooking('Wedding Package')" data-i18n="hero_btn_reserve">Reserve Event Date</a>
+            <a href="#portfolio" class="btn btn-outline" onclick="scrollToSection('portfolio')" data-i18n="hero_btn_explore">Explore Gallery</a>
           </div>
         </div>
         <div class="hero-card-stack">
@@ -190,25 +194,25 @@
           <div class="stat-card">
             <div class="stat-icon">🏆</div>
             <div class="stat-number-wrapper"><span class="stat-number" data-target="20">20</span><span class="stat-plus">+</span></div>
-            <div class="stat-label">Years Mastery</div>
+            <div class="stat-label" data-i18n="stat_mastery">Years Mastery</div>
             <p class="stat-sub">Professional Excellence</p>
           </div>
           <div class="stat-card">
             <div class="stat-icon">💒</div>
             <div class="stat-number-wrapper"><span class="stat-number" data-target="500">500</span><span class="stat-plus">+</span></div>
-            <div class="stat-label">Weddings Captured</div>
+            <div class="stat-label" data-i18n="stat_weddings">Weddings Captured</div>
             <p class="stat-sub">Telugu & Destination</p>
           </div>
           <div class="stat-card">
             <div class="stat-icon">📸</div>
             <div class="stat-number-wrapper"><span class="stat-number" data-target="50">50</span><span class="stat-k">k+</span></div>
-            <div class="stat-label">HD Photos Delivered</div>
+            <div class="stat-label" data-i18n="stat_photos">HD Photos Delivered</div>
             <p class="stat-sub">Retouched 4K Archives</p>
           </div>
           <div class="stat-card">
             <div class="stat-icon">⭐</div>
             <div class="stat-number-wrapper"><span class="stat-number" data-target="100">100</span><span class="stat-plus">%</span></div>
-            <div class="stat-label">Happy Couples</div>
+            <div class="stat-label" data-i18n="stat_couples">Happy Couples</div>
             <p class="stat-sub">5-Star Client Satisfaction</p>
           </div>
         </div>
@@ -1065,6 +1069,6 @@
   </div>
 
   <!-- JavaScript Logic -->
-  <script src="app.js?v=1000000.0"></script>
+  <script src="app.js?v=2000000.0"></script>
 </body>
 </html>
