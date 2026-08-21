@@ -543,53 +543,129 @@ window.calculateEstimate = function() {
   if (calcTotal) calcTotal.innerText = `₹${total.toLocaleString('en-IN')}`;
 };
 
-window.handleAddPortfolio = function(e) {
-  if (e) e.preventDefault();
-  const title = document.getElementById('port-title').value.trim();
-  const category = document.getElementById('port-category').value;
-  const urlImage = document.getElementById('port-image').value.trim();
-  const image = currentUploadedImageDataUrl || urlImage || 'https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=800&q=80';
-  const description = document.getElementById('port-desc').value.trim();
-
-  if (!title || !description) {
-    showToast('Please fill out project title and description!');
+// Automatic Canvas Image Compressor (prevents LocalStorage QuotaExceededError for high-res camera photos)
+function compressImageDataUrl(dataUrl, maxWidth, quality, callback) {
+  if (!dataUrl || typeof dataUrl !== 'string' || !dataUrl.startsWith('data:image')) {
+    callback(dataUrl);
     return;
   }
-
-  const newItem = {
-    id: 'p-' + Date.now(),
-    title,
-    category,
-    image,
-    description
+  const img = new Image();
+  img.onload = function() {
+    let width = img.width;
+    let height = img.height;
+    if (width > maxWidth) {
+      height = Math.round((height * maxWidth) / width);
+      width = maxWidth;
+    }
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, width, height);
+    try {
+      const compressedDataUrl = canvas.toDataURL('image/jpeg', quality);
+      callback(compressedDataUrl);
+    } catch(err) {
+      callback(dataUrl);
+    }
   };
+  img.onerror = function() {
+    callback(dataUrl);
+  };
+  img.src = dataUrl;
+}
 
-  const portfolio = getPortfolio();
-  portfolio.unshift(newItem);
-  localStorage.setItem('ns_portfolio', JSON.stringify(portfolio));
+window.handleAddPortfolio = function(e) {
+  if (e) {
+    if (typeof e.preventDefault === 'function') e.preventDefault();
+    if (typeof e.stopPropagation === 'function') e.stopPropagation();
+  }
+  const titleInput = document.getElementById('port-title');
+  const catInput = document.getElementById('port-category');
+  const urlInput = document.getElementById('port-image');
+  const descInput = document.getElementById('port-desc');
 
-  refreshHomePageData();
-  renderAdminPortfolio();
-  updateKPIs();
+  const title = titleInput ? titleInput.value.trim() : '';
+  const category = catInput ? catInput.value : 'wedding';
+  const urlImage = urlInput ? urlInput.value.trim() : '';
+  const description = descInput ? descInput.value.trim() : '';
 
-  showToast(`New portfolio project "${title}" added successfully!`);
-  const form = document.getElementById('add-portfolio-form');
-  if (form) form.reset();
-  
-  currentUploadedImageDataUrl = '';
-  const previewContainer = document.getElementById('image-upload-preview');
-  if (previewContainer) previewContainer.style.display = 'none';
+  const rawImage = currentUploadedImageDataUrl || urlImage || 'https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=800&q=80';
+
+  if (!title || !description) {
+    showToast('⚠️ Please fill out both project title and description!');
+    alert('Please enter both Project Title and Description.');
+    return false;
+  }
+
+  // Compress photo before saving to avoid browser LocalStorage quota crashes
+  compressImageDataUrl(rawImage, 1000, 0.75, function(finalImage) {
+    const newItem = {
+      id: 'p-' + Date.now(),
+      title,
+      category,
+      image: finalImage,
+      description,
+      createdAt: new Date().toISOString()
+    };
+
+    // 1. Sync to Google Firebase Cloud Firestore if connected
+    if (useFirebase && db) {
+      db.collection('portfolio').doc(newItem.id).set(newItem).catch(err => {
+        console.warn('Firebase portfolio set note:', err);
+      });
+    }
+
+    // 2. Save to LocalStorage with quota protection
+    const portfolio = getPortfolio();
+    portfolio.unshift(newItem);
+    try {
+      localStorage.setItem('ns_portfolio', JSON.stringify(portfolio));
+    } catch(err) {
+      console.warn('LocalStorage quota warning handling:', err);
+      try {
+        localStorage.setItem('ns_portfolio', JSON.stringify(portfolio.slice(0, 15)));
+      } catch(e2) {
+        console.warn('LocalStorage slice error:', e2);
+      }
+    }
+
+    refreshHomePageData();
+    renderAdminPortfolio();
+    updateKPIs();
+
+    showToast(`✓ New portfolio project "${title}" added successfully!`);
+    alert(`✓ Success! New portfolio project "${title}" added live to website gallery!`);
+
+    const form = document.getElementById('add-portfolio-form');
+    if (form) form.reset();
+    
+    currentUploadedImageDataUrl = '';
+    const previewContainer = document.getElementById('image-upload-preview');
+    if (previewContainer) previewContainer.style.display = 'none';
+  });
+
+  return false;
 };
 
 window.deletePortfolioItem = function(id) {
   if (confirm('Are you sure you want to delete this portfolio showcase item?')) {
+    if (useFirebase && db) {
+      db.collection('portfolio').doc(id).delete().catch(err => {
+        console.warn('Firebase portfolio delete note:', err);
+      });
+    }
     let portfolio = getPortfolio();
     portfolio = portfolio.filter(p => p.id !== id);
-    localStorage.setItem('ns_portfolio', JSON.stringify(portfolio));
+    try {
+      localStorage.setItem('ns_portfolio', JSON.stringify(portfolio));
+    } catch(err) {
+      console.warn('LocalStorage delete save note:', err);
+    }
     refreshHomePageData();
     renderAdminPortfolio();
     updateKPIs();
-    showToast('Portfolio project deleted.');
+    showToast('✓ Portfolio project deleted.');
   }
 };
 
@@ -1147,13 +1223,15 @@ function setupEventListeners() {
       if (file) {
         const reader = new FileReader();
         reader.onload = function(evt) {
-          currentUploadedImageDataUrl = evt.target.result;
-          const previewContainer = document.getElementById('image-upload-preview');
-          const previewImg = document.getElementById('upload-preview-img');
-          if (previewContainer && previewImg) {
-            previewImg.src = currentUploadedImageDataUrl;
-            previewContainer.style.display = 'block';
-          }
+          compressImageDataUrl(evt.target.result, 1200, 0.8, function(compressedUrl) {
+            currentUploadedImageDataUrl = compressedUrl;
+            const previewContainer = document.getElementById('image-upload-preview');
+            const previewImg = document.getElementById('upload-preview-img');
+            if (previewContainer && previewImg) {
+              previewImg.src = currentUploadedImageDataUrl;
+              previewContainer.style.display = 'block';
+            }
+          });
         };
         reader.readAsDataURL(file);
       }
