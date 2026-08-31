@@ -822,7 +822,6 @@ document.addEventListener('DOMContentLoaded', () => {
   setupEventListeners();
   startHeroCaptionLoop();
   safeRun('initStatsCounterAnimation', initStatsCounterAnimation);
-  safeRun('applyLanguageTranslations', applyLanguageTranslations);
   
   // Real-time synchronization across browser windows/tabs
   window.addEventListener('storage', () => {
