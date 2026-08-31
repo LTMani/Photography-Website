@@ -454,7 +454,7 @@ window.downloadBrochure = function() {
     <body>
       <div class="header">
         <div class="logo">NARASIMHA STILLS</div>
-        <div class="tagline">Luxury Wedding & Portrait Photography Studio • Est. 2004</div>
+        <div class="tagline">Luxury Wedding & Portrait Photography Studio • Est. 1997</div>
         <p style="margin-top:8px; font-size:13px; color:#64748B;">Founder: Narasimharao • Location: Guntur, Andhra Pradesh</p>
       </div>
 
