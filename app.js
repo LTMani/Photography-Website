@@ -1582,7 +1582,7 @@ const i18nTranslations = {
     
     hero_badge: "★ Guntur's Premier Photography Studio",
     hero_season: "Booking Open for 2026 Season",
-    hero_desc: "With over 20+ years of mastery under the lens of Narasimharao, we turn your weddings, milestones, and portraits into cinematic pieces of art.",
+    hero_desc: "With over 30+ years of mastery under the lens of Narasimharao, we turn your weddings, milestones, and portraits into cinematic pieces of art.",
     hero_btn_reserve: "Reserve Event Date",
     hero_btn_explore: "Explore Gallery",
 
@@ -1607,7 +1607,7 @@ const i18nTranslations = {
 
     hero_badge: "★ గుంటూరు నెం.1 లగ్జరీ ఫోటోగ్రఫీ స్టూడియో",
     hero_season: "2026 బుకింగ్స్ ప్రారంభమైనవి",
-    hero_desc: "నరసింహారావు గారి 20+ సంవత్సరాల అనుభవంతో మీ వివాహ వేడుకలను, మధుర జ్ఞాపకాలను అద్భుతమైన సినిమాటిక్ కళాఖండాలుగా మారుస్తాము.",
+    hero_desc: "నరసింహారావు గారి 30+ సంవత్సరాల అనుభవంతో మీ వివాహ వేడుకలను, మధుర జ్ఞాపకాలను అద్భుతమైన సినిమాటిక్ కళాఖండాలుగా మారుస్తాము.",
     hero_btn_reserve: "తేదీ రిజర్వ్ చేసుకోండి",
     hero_btn_explore: "గ్యాలరీ చూడండి",
 
