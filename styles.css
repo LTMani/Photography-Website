@@ -2443,3 +2443,34 @@ footer .brand-text h2 {
     width: 100%;
   }
 }
+
+/* ==========================================================================
+   OFFICIAL BRAND LOGO IMAGE STYLING
+   ========================================================================== */
+.brand-logo-img {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--accent-gold);
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex-shrink: 0;
+}
+
+.brand-logo:hover .brand-logo-img {
+  transform: scale(1.08) rotate(3deg);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.7);
+}
+
+.splash-logo-img {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent-gold);
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.6);
+  margin-bottom: 16px;
+  animation: splashPulse 2s infinite ease-in-out;
+}
+
